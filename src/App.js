@@ -3,9 +3,10 @@ import "./style.css";
 import { Canvas } from "@react-three/fiber";
 import Globe from "./globe.js";
 import { Suspense, useState } from "react";
-import Map from "./map.js";
 import { OrthographicCamera } from "@react-three/drei";
 import { Html, OrbitControls } from "@react-three/drei";
+import Celeris from "./map/celeris";
+import Ourobora from "./map/ourobora";
 
 export function Loader() {
   return (
@@ -36,7 +37,7 @@ export default function App() {
       <Canvas>
         <color args={["black"]} attach="background" />
         <Suspense fallback={<Loader />}>
-          {isMapView ? (
+          {isMapView === "Celeris" ? (
             <OrthographicCamera
               makeDefault
               position={[0, 0, 8]}
@@ -44,19 +45,23 @@ export default function App() {
               near={0}
               far={8}
             >
-              <Map />
+              <Celeris />
+            </OrthographicCamera>
+          ) : isMapView === "Ourobora" ? (
+            <OrthographicCamera
+              makeDefault
+              position={[0, 0, 8]}
+              zoom={8}
+              near={0}
+              far={8}
+            >
+              <Ourobora />
             </OrthographicCamera>
           ) : (
             <Globe setIsMapView={setIsMapView} />
           )}
         </Suspense>
       </Canvas>
-
-      {/* <Canvas>
-      </Canvas> */}
-      {/* <Canvas>
-        
-      </Canvas> */}
     </>
   );
 }

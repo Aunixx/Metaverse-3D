@@ -1,62 +1,19 @@
 import { extend, useThree, useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { TextureLoader } from "three";
-import bumpMap from "./assets/cardano-bump.png";
-import galaxyImg from "./assets/galax-6.png";
-import map from "./assets/celeris.png";
-import celeris from "./assets/celeris-vector.svg";
-import ouroborus from "./assets/cardano-vector.svg";
-import { GUI } from "dat.gui";
+import bumpMap from "../assets/cardano-bump.png";
+import galaxyImg from "../assets/galax-6.png";
+import map from "../assets/celeris.png";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useGesture, useDrag } from "react-use-gesture";
-import Terrain from "./assets/terrain-1.gltf";
-import TerrainWater from "./assets/terrain-water-1.gltf";
-import Dragon from "./assets/dragon.fbx";
 import { useSpring, a } from "@react-spring/three";
-import { useControls } from "leva";
-import { Triangle } from "react-loader-spinner";
-
-import {
-  Html,
-  //   OrbitControls,
-  PivotControls,
-  TransformControls,
-  PresentationControls,
-  OrthographicCamera,
-  Text,
-  useFBX,
-  useGLTF,
-  useAnimations,
-  Sky,
-  Cloud,
-} from "@react-three/drei";
-import { Perf } from "r3f-perf";
-import * as THREE from "three";
 
 extend({ OrbitControls });
 
 export default function Celeris() {
-  const terrainModel = useGLTF(Terrain);
-  const terrainWaterModel = useGLTF(TerrainWater);
-  const waterAnimations = useAnimations(
-    terrainWaterModel.animations,
-    terrainWaterModel.scene
-  );
-  console.log(waterAnimations);
-
-  useEffect(() => {
-    const action = waterAnimations.actions.water;
-    action.play();
-  }, []);
-  const manager = new THREE.LoadingManager();
-  console.log(terrainWaterModel.materials.map);
-
-  const gui = new GUI({ autoPlace: true });
   const { camera, gl } = useThree();
   const controls = useRef();
   const globeRef = useRef();
-  const modelRef = useRef();
-  const htmlRef = useRef();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
   const galaxy = useLoader(TextureLoader, galaxyImg);
@@ -88,13 +45,9 @@ export default function Celeris() {
   let pinPoint2 = location(pin2);
 
   const { size, viewport } = useThree();
-  const aspect = size.width / viewport.width;
-  const boundaries = [-20, 20, 20, -20];
   const [spring, api] = useSpring(() => ({
-    // scale: [1, 1, 1],
     position: [0, 0, 0],
     rotation: [0, 0, 0],
-    // config: { friction: 10 },
   }));
 
   useEffect(() => {
@@ -121,7 +74,6 @@ export default function Celeris() {
   );
 
   useFrame((state, delta) => {
-    controls.current.update();
     setPrevCameraZoom(cameraZoom);
     setCameraZoom(camera.zoom);
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -129,27 +81,21 @@ export default function Celeris() {
 
   return (
     <>
-      <Sky />
-
-      <Perf />
-      {/* <directionalLight args={[0xffffff, 0.01]} position={[8, 8, 0]} /> */}
       <ambientLight args={[0xffffff, 0.5]} />
-
-      {/* <pointLight args={[0xffffff, 0.4]} position={[8, 8, 8]} /> */}
-
       <orbitControls
         args={[camera, gl.domElement]}
         makeDefault
         ref={controls}
-        // maxDistance={2000}
+        maxDistance={2000}
         enableRotate={false}
         maxZoom={42}
+        panSpeed={0.5}
+        zoomSpeed={0.5}
         minZoom={9}
         enableDamping={true}
         dampingFactor={0.05}
         screenSpacePanning={true}
       />
-
       <a.mesh ref={globeRef} {...spring} {...bind()}>
         <planeGeometry args={[200, 200]} position={[0, 0, 0]} />
         <meshBasicMaterial attach="material" map={texture} />

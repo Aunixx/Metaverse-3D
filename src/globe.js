@@ -8,6 +8,8 @@ import galaxyImg from "./assets/galax-6.png";
 import { Perf } from "r3f-perf";
 import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { gsap } from "gsap";
+import { useEffect } from "react";
 
 // extend({ OrbitControls });
 
@@ -62,9 +64,8 @@ export default function Globe({ setIsMapView }) {
 
   return (
     <>
-      <Perf />
+      {/* <Perf /> */}
       <OrbitControls
-        // args={[camera, gl.domElement]}
         maxDistance={1.8}
         maxZoom={1.3}
         minDistance={1.3}
@@ -98,7 +99,9 @@ export default function Globe({ setIsMapView }) {
               class="circlewrapper"
               onMouseOver={() => setRotation(0)}
               onMouseLeave={() => setRotation(0.0007)}
-              onClick={() => setIsMapView(true)}
+              onClick={() => {
+                setIsMapView("Celeris");
+              }}
             >
               <div class="midcircle"></div>
               <div class="circles">
@@ -121,6 +124,9 @@ export default function Globe({ setIsMapView }) {
               class="circlewrapper"
               onMouseOver={() => setRotation(0)}
               onMouseLeave={() => setRotation(0.0007)}
+              onClick={() => {
+                setIsMapView("Ourobora");
+              }}
             >
               <div class="midcircle"></div>
               <div class="circles">
