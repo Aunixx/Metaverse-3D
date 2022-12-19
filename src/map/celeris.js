@@ -7,11 +7,14 @@ import map from "../assets/celeris.png";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
+import { Html } from "@react-three/drei";
 
 extend({ OrbitControls });
 
-export default function Celeris() {
+export default function Celeris({ setIsMapView }) {
   const { camera, gl } = useThree();
+  const [zoomIn, setZoomIn] = useState(8);
+  const [zoomOut, setZoomOut] = useState(8);
   const controls = useRef();
   const globeRef = useRef();
   const texture = useLoader(TextureLoader, map);
@@ -77,6 +80,7 @@ export default function Celeris() {
     setPrevCameraZoom(cameraZoom);
     setCameraZoom(camera.zoom);
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.updateProjectionMatrix();
   });
 
   return (
@@ -97,6 +101,24 @@ export default function Celeris() {
         screenSpacePanning={true}
       />
       <a.mesh ref={globeRef} {...spring} {...bind()}>
+        <Html>
+          <button onClick={() => setIsMapView("")}>Back To Globe</button>
+        </Html>
+        <Html>
+          <button
+            onClick={() => (camera.zoom += 2)}
+            disabled={camera.zoom === 42}
+          >
+            +
+          </button>
+          <button
+            onClick={() => (camera.zoom != 8 ? (camera.zoom -= 2) : "")}
+            disabled={camera.zoom === 8}
+          >
+            -
+          </button>
+        </Html>
+
         <planeGeometry args={[200, 200]} position={[0, 0, 0]} />
         <meshBasicMaterial attach="material" map={texture} />
       </a.mesh>

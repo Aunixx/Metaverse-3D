@@ -10,23 +10,30 @@ import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { useEffect } from "react";
+import { GlobeView, MapView } from "./assets/svg";
+import Lead from "./components/lead";
+import CelerisLand from "./assets/land-pic.svg";
+import OuroboraLand from "./assets/land-pic.svg";
 
 // extend({ OrbitControls });
 
-export default function Globe({ setIsMapView }) {
+export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   const { camera, gl } = useThree();
   const galaxyRef = useRef();
   const globeRef = useRef();
+  const controls = useRef();
   const globeGroupeRef = useRef();
+  const [isLead, setIsLead] = useState({
+    landImg: "",
+    landName: "",
+    landDescription: "",
+    isViewLead: "",
+  });
   const lightHolder = useRef();
   const [rotation, setRotation] = useState(0.0007);
-  // const [bigText, setBigText] = useState(null);
+  const [btnOneActive, setBtnOneActive] = useState(true);
+  const [btnTwoActive, setBtnTwoActive] = useState(false);
   const manager = new THREE.LoadingManager();
-
-  // const texture = new THREE.TextureLoader().load(map);
-  // const bump = new THREE.TextureLoader().load(bumpMap);
-  // const galaxy = new THREE.TextureLoader().load(galaxyImg);
-
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
   const galaxy = useLoader(TextureLoader, galaxyImg);
@@ -43,6 +50,9 @@ export default function Globe({ setIsMapView }) {
       z,
     };
   }
+  useEffect(() => {
+    gsap.from(globeGroupeRef.current.position, { z: -10, duration: 2 });
+  }, []);
 
   let lat = 30;
   let lng = 10;
@@ -52,6 +62,21 @@ export default function Globe({ setIsMapView }) {
   lng = -27;
   let pin2 = { lat, lng };
   let pinPoint2 = location(pin2);
+
+  const handleMouseOver = (
+    rotation,
+    landName,
+    landImg,
+    landDescription,
+    isViewLead
+  ) => {
+    setRotation(rotation);
+    setIsLead({ landName, landImg, landDescription, isViewLead });
+  };
+  const handleMouseLeave = (rotation, isViewLead) => {
+    setRotation(rotation);
+    setIsLead({ isViewLead: isViewLead });
+  };
 
   useFrame((state, delta) => {
     galaxyRef.current.rotation.y += 0.0001;
@@ -66,6 +91,7 @@ export default function Globe({ setIsMapView }) {
     <>
       {/* <Perf /> */}
       <OrbitControls
+        ref={controls}
         maxDistance={1.8}
         maxZoom={1.3}
         minDistance={1.3}
@@ -92,24 +118,44 @@ export default function Globe({ setIsMapView }) {
             occlude={[globeRef]}
             center
             wrapperClass="label"
-            distanceFactor={1.5}
+            distanceFactor={1}
             sprite={true}
           >
             <div
               class="circlewrapper"
-              onMouseOver={() => setRotation(0)}
-              onMouseLeave={() => setRotation(0.0007)}
+              onMouseOver={() =>
+                handleMouseOver(
+                  0,
+                  "Celeris",
+                  CelerisLand,
+                  "Celeris is a small island surrounded by sand-fringed islets and a turquoise lagoon protected by a coral reef that has rising stones forming the cardano sea.",
+                  true
+                )
+              }
+              // onMouseLeave={() => handleMouseLeave(0.0007)}
               onClick={() => {
                 setIsMapView("Celeris");
               }}
             >
-              <div class="midcircle"></div>
-              <div class="circles">
-                <div class="circle1"></div>
-                <div class="circle2"></div>
-                <div class="circle3"></div>
-              </div>
-              <h1 className="bigtext bigtext1">Celeris</h1>
+              {isLead.landName === "Celeris" ? (
+                <Lead
+                  landImg={isLead.landImg}
+                  landName={isLead.landName}
+                  landDescription={isLead.landDescription}
+                  setIsMapView={setIsMapView}
+                  handleMouseLeave={handleMouseLeave}
+                  handleMouseOver={handleMouseOver}
+                />
+              ) : (
+                <>
+                  <div class="midcircle"></div>
+                  <div class="circles">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                  </div>
+                </>
+              )}
             </div>
           </Html>
           <Html
@@ -117,24 +163,44 @@ export default function Globe({ setIsMapView }) {
             occlude={[globeRef]}
             center
             wrapperClass="label"
-            distanceFactor={1.5}
+            distanceFactor={1}
             sprite={true}
           >
             <div
               class="circlewrapper"
-              onMouseOver={() => setRotation(0)}
-              onMouseLeave={() => setRotation(0.0007)}
+              onMouseOver={() =>
+                handleMouseOver(
+                  0,
+                  "Ourobora",
+                  OuroboraLand,
+                  "Ourobora is a small island surrounded by sand-fringed islets and a turquoise lagoon protected by a coral reef that has rising stones forming the cardano sea.",
+                  true
+                )
+              }
+              // onMouseLeave={() => handleMouseLeave(0.0007)}
               onClick={() => {
                 setIsMapView("Ourobora");
               }}
             >
-              <div class="midcircle"></div>
-              <div class="circles">
-                <div class="circle1"></div>
-                <div class="circle2"></div>
-                <div class="circle3"></div>
-              </div>
-              <h1 className="bigtext bigtext2">Ourobora</h1>
+              {isLead.landName === "Ourobora" ? (
+                <Lead
+                  landImg={isLead.landImg}
+                  landName={isLead.landName}
+                  landDescription={isLead.landDescription}
+                  setIsMapView={setIsMapView}
+                  handleMouseLeave={handleMouseLeave}
+                  handleMouseOver={handleMouseOver}
+                />
+              ) : (
+                <>
+                  <div class="midcircle"></div>
+                  <div class="circles">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                  </div>
+                </>
+              )}
             </div>
           </Html>
         </mesh>
@@ -149,6 +215,25 @@ export default function Globe({ setIsMapView }) {
           opacity={0.8}
         />
       </mesh>
+      <Html wrapperClass="changeViewWrapper">
+        <div className="changeViewContent">
+          <button
+            onClick={() => {
+              setKirrusView("globe");
+            }}
+          >
+            <GlobeView color={btnOneActive ? "white" : "#A1A7B0"} />
+          </button>
+          <button
+            onClick={() => {
+              setKirrusView("map");
+              controls.current.reset();
+            }}
+          >
+            <MapView color={btnTwoActive ? "white" : "#A1A7B0"} />
+          </button>
+        </div>
+      </Html>
     </>
   );
 }

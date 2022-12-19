@@ -7,10 +7,11 @@ import map from "../assets/ourobora.png";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
+import { Html } from "@react-three/drei";
 
 extend({ OrbitControls });
 
-export default function Ourobora() {
+export default function Ourobora(setIsMapView) {
   const { camera, gl } = useThree();
   const controls = useRef();
   const globeRef = useRef();
@@ -97,6 +98,9 @@ export default function Ourobora() {
         screenSpacePanning={true}
       />
       <a.mesh ref={globeRef} {...spring} {...bind()}>
+        <Html>
+          <button onClick={() => setIsMapView("")}>Back To Globe</button>
+        </Html>
         <planeGeometry args={[200, 200]} position={[0, 0, 0]} />
         <meshBasicMaterial attach="material" map={texture} />
       </a.mesh>

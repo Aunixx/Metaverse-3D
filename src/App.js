@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 
 import { Canvas } from "@react-three/fiber";
 import Globe from "./globe.js";
@@ -7,6 +7,7 @@ import { OrthographicCamera } from "@react-three/drei";
 import { Html, OrbitControls } from "@react-three/drei";
 import Celeris from "./map/celeris";
 import Ourobora from "./map/ourobora";
+import KirrusMap from "./map/kirrus";
 
 export function Loader() {
   return (
@@ -21,7 +22,8 @@ export function Loader() {
 }
 
 export default function App() {
-  const [isMapView, setIsMapView] = useState(false);
+  const [isMapView, setIsMapView] = useState("");
+  const [kirrusView, setKirrusView] = useState("globe");
   const position = {
     position: [0, 0, 8],
     zoom: [8],
@@ -45,7 +47,7 @@ export default function App() {
               near={0}
               far={8}
             >
-              <Celeris />
+              <Celeris setIsMapView={setIsMapView} isMapView={isMapView} />
             </OrthographicCamera>
           ) : isMapView === "Ourobora" ? (
             <OrthographicCamera
@@ -55,10 +57,20 @@ export default function App() {
               near={0}
               far={8}
             >
-              <Ourobora />
+              <Ourobora setIsMapView={setIsMapView} isMapView={isMapView} />
             </OrthographicCamera>
+          ) : isMapView === "" && kirrusView === "globe" ? (
+            <Globe setIsMapView={setIsMapView} setKirrusView={setKirrusView} />
           ) : (
-            <Globe setIsMapView={setIsMapView} />
+            <OrthographicCamera
+              makeDefault
+              position={[0, 0, 4]}
+              zoom={4}
+              near={0}
+              far={4}
+            >
+              <KirrusMap setKirrusView={setKirrusView} />
+            </OrthographicCamera>
           )}
         </Suspense>
       </Canvas>
