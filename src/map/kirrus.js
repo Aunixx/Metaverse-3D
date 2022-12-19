@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { TextureLoader } from "three";
 import bumpMap from "../assets/cardano-bump.png";
 import galaxyImg from "../assets/galax-6.png";
-import map from "../assets/cardano.png";
+import map from "../assets/cardano-min.png";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
