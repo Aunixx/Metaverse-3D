@@ -81,8 +81,8 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: 1;
-  border: 1px solid white;
-  background-color: red;
+  border: 3px solid white;
+  background-color: #0f5e9c;
 }
 .circles .circle1 {
   animation-delay: 1s;
@@ -96,7 +96,7 @@
 
 @keyframes growAndFade {
   0% {
-    opacity: 0.4;
+    opacity: 1;
     transform: scale(0);
   }
   100% {
@@ -126,8 +126,8 @@
   border-right: 25px solid transparent;
   border-bottom: 50px solid #22809c;
   position: relative;
-  -webkit-animation: 3s triforce linear infinite 2s both;
-  animation: 3s triforce linear infinite 2s both;
+  -webkit-animation: 1s triforce linear infinite 1s both;
+  animation: 1s triforce linear infinite 1s both;
   top: 50px;
 }
 
@@ -230,4 +230,9 @@
 }
 .beforeUnset button:last-child::before {
   all: unset;
+}
+
+.labelPoint {
+  z-index: 1 !important;
+  display: block !important;
 }

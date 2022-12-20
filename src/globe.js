@@ -9,7 +9,7 @@ import { Perf } from "r3f-perf";
 import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { GlobeView, MapView } from "./assets/svg";
 import Lead from "./components/lead/lead";
 import CelerisLand from "./assets/land-pic.svg";
@@ -80,9 +80,9 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
     setIsLead({ isViewLead: isViewLead });
   };
 
-  useEffect(() => {
-    gsap.to(camera, { zoom: cameraZoom, duration: 1 });
-  }, [cameraZoom]);
+  useLayoutEffect(() => {
+    gsap.from(camera, { zoom: 0.2, duration: 2.5 });
+  }, []);
 
   useFrame((state, delta) => {
     galaxyRef.current.rotation.y += 0.0001;
@@ -127,7 +127,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
             occlude={[globeRef]}
             center
             wrapperClass="label"
-            distanceFactor={1}
+            distanceFactor={1.5}
             sprite={true}
           >
             <div
@@ -172,7 +172,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
             occlude={[globeRef]}
             center
             wrapperClass="label"
-            distanceFactor={1}
+            distanceFactor={1.5}
             sprite={true}
           >
             <div
@@ -221,7 +221,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
           map={galaxy}
           side={BackSide}
           transparent
-          opacity={0.8}
+          opacity={0.9}
         />
       </mesh>
       <Html wrapperClass="changeViewWrapper">

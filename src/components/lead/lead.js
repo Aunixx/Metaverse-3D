@@ -7,6 +7,7 @@ export default function Lead({
   handleMouseLeave,
   handleMouseOver,
 }) {
+  console.log(setIsMapView);
   return (
     <div className="leadContent">
       <div

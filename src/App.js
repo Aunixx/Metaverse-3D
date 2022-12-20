@@ -5,9 +5,9 @@ import Globe from "./globe.js";
 import { Suspense, useState } from "react";
 import { OrthographicCamera } from "@react-three/drei";
 import { Html, OrbitControls } from "@react-three/drei";
-import Celeris from "./map/celeris";
-import Ourobora from "./map/ourobora";
-import KirrusMap from "./map/kirrus";
+import Celeris from "./maps/celeris";
+import Ourobora from "./maps/ourobora";
+import KirrusMap from "./maps/kirrus";
 
 export function Loader() {
   return (
@@ -36,7 +36,8 @@ export default function App() {
 
   return (
     <>
-      <Canvas>
+      <Canvas onCreated={(state) => state.gl.setClearColor("black")}>
+        <fog attach="fog" args={["#cff4fe", 2, 30]} position={[8, 8, 8]} />
         <color args={["black"]} attach="background" />
         <Suspense fallback={<Loader />}>
           {isMapView === "Celeris" ? (
@@ -69,7 +70,10 @@ export default function App() {
               near={0}
               far={4}
             >
-              <KirrusMap setKirrusView={setKirrusView} />
+              <KirrusMap
+                setKirrusView={setKirrusView}
+                setIsMapView={setIsMapView}
+              />
             </OrthographicCamera>
           )}
         </Suspense>
