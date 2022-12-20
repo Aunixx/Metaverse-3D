@@ -9,6 +9,7 @@ import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
 import { Html } from "@react-three/drei";
 import { GlobeView, MapView } from "../assets/svg";
+import ZoomInOut from "../components/zoomInOut/zoomInOut";
 
 extend({ OrbitControls });
 
@@ -54,10 +55,12 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
     rotation: [0, 0, 0],
   }));
 
+  console.log(viewport);
+
   useEffect(() => {
     const width = viewport.getCurrentViewport().width / 2;
     const height = viewport.getCurrentViewport().height / 2;
-    setZoomLevelWidth(100 - width);
+    setZoomLevelWidth(200 - width);
     setZoomLevelHeight(100 - height);
   }, [cameraZoom]);
 
@@ -78,7 +81,6 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
   );
   //   console.log(controls.current.reset());
   useFrame((state, delta) => {
-    setPrevCameraZoom(cameraZoom);
     setCameraZoom(camera.zoom);
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     camera.updateProjectionMatrix();
@@ -93,7 +95,7 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
         ref={controls}
         maxDistance={1000}
         enableRotate={false}
-        maxZoom={42}
+        maxZoom={44}
         panSpeed={0.5}
         zoomSpeed={0.5}
         minZoom={4}
@@ -142,6 +144,7 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
           </button>
         </div>
       </Html>
+      <ZoomInOut camera={camera} zoomValue={8} minValue={4} maxValue={44} />
     </>
   );
 }

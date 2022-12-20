@@ -8,10 +8,12 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
 import { Html } from "@react-three/drei";
+import BackBtn from "../components/backBtn/backBtn";
+import ZoomInOut from "../components/zoomInOut/zoomInOut";
 
 extend({ OrbitControls });
 
-export default function Ourobora(setIsMapView) {
+export default function Ourobora({ setIsMapView }) {
   const { camera, gl } = useThree();
   const controls = useRef();
   const globeRef = useRef();
@@ -78,6 +80,7 @@ export default function Ourobora(setIsMapView) {
     setPrevCameraZoom(cameraZoom);
     setCameraZoom(camera.zoom);
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.updateProjectionMatrix();
   });
 
   return (
@@ -89,7 +92,7 @@ export default function Ourobora(setIsMapView) {
         ref={controls}
         maxDistance={2000}
         enableRotate={false}
-        maxZoom={42}
+        maxZoom={45}
         panSpeed={0.5}
         zoomSpeed={0.5}
         minZoom={9}
@@ -98,12 +101,11 @@ export default function Ourobora(setIsMapView) {
         screenSpacePanning={true}
       />
       <a.mesh ref={globeRef} {...spring} {...bind()}>
-        <Html>
-          <button onClick={() => setIsMapView("")}>Back To Globe</button>
-        </Html>
         <planeGeometry args={[200, 200]} position={[0, 0, 0]} />
         <meshBasicMaterial attach="material" map={texture} />
       </a.mesh>
+      <BackBtn setIsMapView={setIsMapView} />
+      <ZoomInOut camera={camera} zoomValue={9} minValue={9} maxValue={45} />
     </>
   );
 }

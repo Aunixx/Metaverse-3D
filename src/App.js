@@ -42,20 +42,20 @@ export default function App() {
           {isMapView === "Celeris" ? (
             <OrthographicCamera
               makeDefault
-              position={[0, 0, 8]}
-              zoom={8}
+              position={[0, 0, 9]}
+              zoom={9}
               near={0}
-              far={8}
+              far={9}
             >
               <Celeris setIsMapView={setIsMapView} isMapView={isMapView} />
             </OrthographicCamera>
           ) : isMapView === "Ourobora" ? (
             <OrthographicCamera
               makeDefault
-              position={[0, 0, 8]}
-              zoom={8}
+              position={[0, 0, 9]}
+              zoom={9}
               near={0}
-              far={8}
+              far={9}
             >
               <Ourobora setIsMapView={setIsMapView} isMapView={isMapView} />
             </OrthographicCamera>

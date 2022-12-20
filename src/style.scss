@@ -179,6 +179,23 @@
   transform: unset !important;
   height: 100%;
   width: 100%;
+  &.right {
+    left: 90% !important;
+    top: calc(100% - 80px) !important;
+    button {
+      font-size: 24px;
+      color: #a1a7b0;
+      svg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .changeViewContent button:last-child::before {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .changeViewContent {
@@ -210,4 +227,7 @@
   transform: unset !important;
   height: 100%;
   width: 100%;
+}
+.beforeUnset button:last-child::before {
+  all: unset;
 }

@@ -11,9 +11,10 @@ import * as THREE from "three";
 import { gsap } from "gsap";
 import { useEffect } from "react";
 import { GlobeView, MapView } from "./assets/svg";
-import Lead from "./components/lead";
+import Lead from "./components/lead/lead";
 import CelerisLand from "./assets/land-pic.svg";
 import OuroboraLand from "./assets/land-pic.svg";
+import ZoomInOut from "./components/zoomInOut/zoomInOut";
 
 // extend({ OrbitControls });
 
@@ -33,6 +34,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   const [rotation, setRotation] = useState(0.0007);
   const [btnOneActive, setBtnOneActive] = useState(true);
   const [btnTwoActive, setBtnTwoActive] = useState(false);
+  let [cameraZoom, setCameraZoom] = useState(1);
   const manager = new THREE.LoadingManager();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
@@ -51,7 +53,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
     };
   }
   useEffect(() => {
-    gsap.from(globeGroupeRef.current.position, { z: -10, duration: 2 });
+    gsap.from(camera.position, { z: 10, duration: 2 });
   }, []);
 
   let lat = 30;
@@ -78,6 +80,10 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
     setIsLead({ isViewLead: isViewLead });
   };
 
+  useEffect(() => {
+    gsap.to(camera, { zoom: cameraZoom, duration: 1 });
+  }, [cameraZoom]);
+
   useFrame((state, delta) => {
     galaxyRef.current.rotation.y += 0.0001;
     globeGroupeRef.current.rotation.y -= rotation;
@@ -85,6 +91,8 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
     lightHolder.current.quaternion.copy(state.camera.quaternion);
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     state.gl.toneMapping = CineonToneMapping;
+    camera.updateProjectionMatrix();
+    console.log(camera.zoom);
   });
 
   return (
@@ -92,9 +100,10 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
       {/* <Perf /> */}
       <OrbitControls
         ref={controls}
-        maxDistance={1.8}
-        maxZoom={1.3}
-        minDistance={1.3}
+        maxDistance={2}
+        maxZoom={2.1}
+        enablePan={false}
+        minDistance={1.2}
         zoomSpeed={0.5}
         enableDamping={true}
       />
