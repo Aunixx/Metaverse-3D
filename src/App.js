@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <>
-      <Canvas onCreated={(state) => state.gl.setClearColor("black")}>
+      <Canvas flat>
         <fog attach="fog" args={["#cff4fe", 2, 30]} position={[8, 8, 8]} />
         <color args={["black"]} attach="background" />
         <Suspense fallback={<Loader />}>

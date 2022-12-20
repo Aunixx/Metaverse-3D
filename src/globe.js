@@ -98,6 +98,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   return (
     <>
       {/* <Perf /> */}
+
       <OrbitControls
         ref={controls}
         maxDistance={2}
