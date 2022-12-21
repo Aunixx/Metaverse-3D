@@ -22,12 +22,14 @@ export default function Lead({
             true
           )
         }
+        onTouchStart={() => handleMouseLeave(0.0007, false)}
       >
         <img src={landImg} />
       </div>
       <div
         className="contentSection"
         onMouseLeave={() => handleMouseLeave(0.0007, false)}
+        onTouchStart={() => handleMouseLeave(0.0007, false)}
         onMouseOver={() =>
           handleMouseOver(
             0,
@@ -42,7 +44,11 @@ export default function Lead({
         <h5 className="description">Description</h5>
         <p className="paragraph">{landDescription}</p>
         <div className="btnSection">
-          <button onClick={() => setIsMapView(landName)} className="exploreBtn">
+          <button
+            onClick={() => setIsMapView(landName)}
+            onTouchStart={() => setIsMapView(landName)}
+            className="exploreBtn"
+          >
             Explore
           </button>
           <button className="buyBtn">Buy on opensea</button>
