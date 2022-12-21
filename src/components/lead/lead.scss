@@ -5,6 +5,9 @@
   align-items: flex-start;
   gap: 20px;
   z-index: 2;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
   cursor: auto;
   .imageSection {
     align-self: flex-start;
@@ -14,6 +17,9 @@
     background: #ffffff;
     border-radius: 12px;
     padding: 24px;
+    @media (max-width: 768px) {
+      width: 200px;
+    }
     h2 {
       font-weight: 400;
       font-size: 16px;
@@ -49,6 +55,9 @@
       align-items: center;
       width: 100%;
       gap: 12px;
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
       button {
         width: 100%;
         font-weight: 400;

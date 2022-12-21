@@ -174,26 +174,35 @@
 
 .changeViewWrapper {
   position: fixed;
-  left: 4% !important;
+  left: 24px !important;
   top: calc(100% - 100px) !important;
   transform: unset !important;
   height: 100%;
   width: 100%;
   &.right {
-    left: 90% !important;
-    top: calc(100% - 80px) !important;
+    left: calc(100% - 150px) !important;
+    top: calc(100% - 100px) !important;
     button {
       font-size: 24px;
       color: #a1a7b0;
+      padding: 10px 18px;
       svg {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 28px;
+        height: 28px;
       }
     }
-    .changeViewContent button:last-child::before {
-      top: 50%;
-      transform: translateY(-50%);
+    .changeViewContent {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      button:last-child::before {
+        height: 80%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
 }

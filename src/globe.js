@@ -83,7 +83,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   useLayoutEffect(() => {
     gsap.from(camera, { zoom: 0.2, duration: 2.5 });
   }, []);
-
   useFrame((state, delta) => {
     galaxyRef.current.rotation.y += 0.0001;
     globeGroupeRef.current.rotation.y -= rotation;
@@ -92,19 +91,28 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     state.gl.toneMapping = CineonToneMapping;
     camera.updateProjectionMatrix();
-    console.log(camera.zoom);
   });
 
   return (
     <>
-      {/* <Perf /> */}
-
       <OrbitControls
         ref={controls}
-        maxDistance={2}
+        maxDistance={
+          window.innerWidth < 600 && window.innerWidth > 450
+            ? 2.5
+            : window.innerWidth < 450
+            ? 3.1
+            : 2
+        }
         maxZoom={2.1}
         enablePan={false}
-        minDistance={1.2}
+        minDistance={
+          window.innerWidth < 600 && window.innerWidth > 450
+            ? 1.8
+            : window.innerWidth < 450
+            ? 2
+            : 1.2
+        }
         zoomSpeed={0.5}
         enableDamping={true}
       />
@@ -143,9 +151,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
                 )
               }
               // onMouseLeave={() => handleMouseLeave(0.0007)}
-              onClick={() => {
-                setIsMapView("Celeris");
-              }}
             >
               {isLead.landName === "Celeris" ? (
                 <Lead
@@ -188,9 +193,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
                 )
               }
               // onMouseLeave={() => handleMouseLeave(0.0007)}
-              onClick={() => {
-                setIsMapView("Ourobora");
-              }}
             >
               {isLead.landName === "Ourobora" ? (
                 <Lead

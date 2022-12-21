@@ -24,15 +24,6 @@ export function Loader() {
 export default function App() {
   const [isMapView, setIsMapView] = useState("");
   const [kirrusView, setKirrusView] = useState("globe");
-  const position = {
-    position: [0, 0, 8],
-    zoom: [8],
-    bottom: [-80],
-    top: [80],
-    left: [-80],
-    right: [80],
-    zoomOut: [0],
-  };
 
   return (
     <>
