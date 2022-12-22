@@ -37,7 +37,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   const [btnOneActive, setBtnOneActive] = useState(true);
   const [btnTwoActive, setBtnTwoActive] = useState(false);
   let [cameraZoom, setCameraZoom] = useState(1);
-  let [soundOn, setSoundOn] = useState(true);
+  let [soundOn, setSoundOn] = useState(false);
   const manager = new THREE.LoadingManager();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
