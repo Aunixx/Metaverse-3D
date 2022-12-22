@@ -2,24 +2,12 @@ import "./style.scss";
 
 import { Canvas } from "@react-three/fiber";
 import Globe from "./globe.js";
-import { Suspense, useState } from "react";
-import { OrthographicCamera } from "@react-three/drei";
-import { Html, OrbitControls } from "@react-three/drei";
+import { Suspense, useState, useEffect, useRef } from "react";
+import { Html, useProgress, OrthographicCamera } from "@react-three/drei";
 import Celeris from "./maps/celeris";
 import Ourobora from "./maps/ourobora";
 import KirrusMap from "./maps/kirrus";
-
-export function Loader() {
-  return (
-    <Html>
-      <div className="loader">
-        <div className="triforce-container">
-          <div className="triforce"></div>
-        </div>
-      </div>
-    </Html>
-  );
-}
+import Loader from "./components/loader/loader";
 
 export default function App() {
   const [isMapView, setIsMapView] = useState("");
@@ -27,10 +15,19 @@ export default function App() {
 
   return (
     <>
-      <Canvas flat>
-        <fog attach="fog" args={["#cff4fe", 2, 30]} position={[8, 8, 8]} />
-        <color args={["black"]} attach="background" />
-        <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader />}>
+        <Canvas flat>
+          {isMapView === "" && kirrusView === "globe" && (
+            <fog
+              attach="fog"
+              args={
+                window.innerWidth < 600
+                  ? ["#cff4fe", 8, 20]
+                  : ["#cff4fe", 2, 27.5]
+              }
+            />
+          )}
+          <color args={["black"]} attach="background" />
           {isMapView === "Celeris" ? (
             <OrthographicCamera
               makeDefault
@@ -67,8 +64,8 @@ export default function App() {
               />
             </OrthographicCamera>
           )}
-        </Suspense>
-      </Canvas>
+        </Canvas>
+      </Suspense>
     </>
   );
 }

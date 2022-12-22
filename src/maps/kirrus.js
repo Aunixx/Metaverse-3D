@@ -84,6 +84,7 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
         bottom: zoomLevelHeight,
       },
       preventDefault: true,
+      threshold: 0,
     }
   );
   const handleMouseOver = (landName, landImg, landDescription, isViewLead) => {

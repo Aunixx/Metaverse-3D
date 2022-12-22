@@ -1,19 +1,39 @@
 {
   "files": {
-    "main.css": "/static/css/main.2969507a.css",
-    "main.js": "/static/js/main.aaa3cded.js",
+    "main.css": "/static/css/main.75297d20.css",
+    "main.js": "/static/js/main.18d8286f.js",
     "static/media/celeris.png": "/static/media/celeris.f7a55106dd96756cdee1.png",
     "static/media/ourobora.png": "/static/media/ourobora.26aa3a06e90e2a6931e3.png",
     "static/media/cardano-min.png": "/static/media/cardano-min.9e4c3b489344a848cfdb.png",
     "static/media/cardano-bump.png": "/static/media/cardano-bump.eb18e1c6015e43eced48.png",
     "static/media/galax-6.png": "/static/media/galax-6.6376a942e1ef27fea433.png",
     "static/media/land-pic.svg": "/static/media/land-pic.5a311bf498135b5023450e340ac6003f.svg",
+    "static/media/Magistral-ExtraBoldItalic.woff": "/static/media/Magistral-ExtraBoldItalic.91491443daf770c39ea3.woff",
+    "static/media/Magistral-BoldItalic.woff": "/static/media/Magistral-BoldItalic.ef46b24165e375ec7b97.woff",
+    "static/media/Magistral-BookItalic.woff": "/static/media/Magistral-BookItalic.b502d710104b3ddad1c6.woff",
+    "static/media/Magistral-MediumItalic.woff": "/static/media/Magistral-MediumItalic.8af93359c877bbd6b62e.woff",
+    "static/media/Magistral-LightItalic.woff": "/static/media/Magistral-LightItalic.84c23e985b41d315c495.woff",
+    "static/media/Magistral-Book.woff": "/static/media/Magistral-Book.1c25df5fc04d8c8bc813.woff",
+    "static/media/Magistral-Bold.woff": "/static/media/Magistral-Bold.4a3516e6d6d14efb64c6.woff",
+    "static/media/Magistral-ExtraBold.woff": "/static/media/Magistral-ExtraBold.3444947c07b06a5d852b.woff",
+    "static/media/Magistral-Medium.woff": "/static/media/Magistral-Medium.d742de92e858bc23946a.woff",
+    "static/media/Magistral-Light.woff": "/static/media/Magistral-Light.0d68aa19296456051cb2.woff",
+    "static/media/Magistral-ExtraBoldItalic.woff2": "/static/media/Magistral-ExtraBoldItalic.40ec5bb878d84a1ae05d.woff2",
+    "static/media/Magistral-BoldItalic.woff2": "/static/media/Magistral-BoldItalic.36b044e8666341ea251c.woff2",
+    "static/media/Magistral-BookItalic.woff2": "/static/media/Magistral-BookItalic.4715e919571fdcf3f1e7.woff2",
+    "static/media/Magistral-MediumItalic.woff2": "/static/media/Magistral-MediumItalic.c7fe6706d38347391b26.woff2",
+    "static/media/Magistral-LightItalic.woff2": "/static/media/Magistral-LightItalic.20c654fd70db5f4586eb.woff2",
+    "static/media/Magistral-Book.woff2": "/static/media/Magistral-Book.aee76e0a000aa9b51bc0.woff2",
+    "static/media/Magistral-Bold.woff2": "/static/media/Magistral-Bold.38caad9e9f6a63c3f8e8.woff2",
+    "static/media/Magistral-ExtraBold.woff2": "/static/media/Magistral-ExtraBold.d4d2931dac3591926881.woff2",
+    "static/media/Magistral-Medium.woff2": "/static/media/Magistral-Medium.78f5c80fea4324241a58.woff2",
+    "static/media/Magistral-Light.woff2": "/static/media/Magistral-Light.15bcdb6910c7b3e661b9.woff2",
     "index.html": "/index.html",
-    "main.2969507a.css.map": "/static/css/main.2969507a.css.map",
-    "main.aaa3cded.js.map": "/static/js/main.aaa3cded.js.map"
+    "main.75297d20.css.map": "/static/css/main.75297d20.css.map",
+    "main.18d8286f.js.map": "/static/js/main.18d8286f.js.map"
   },
   "entrypoints": [
-    "static/css/main.2969507a.css",
-    "static/js/main.aaa3cded.js"
+    "static/css/main.75297d20.css",
+    "static/js/main.18d8286f.js"
   ]
 }

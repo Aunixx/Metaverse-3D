@@ -1,0 +1,15 @@
+@mixin fontStyle(
+  $family: var(--Magistral-Book),
+  $size: 20px,
+  $weight: normal,
+  $style: normal,
+  $lineHeight: 1,
+  $color: var(--Regular-text-color)
+) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+  line-height: $lineHeight;
+  color: $color;
+}

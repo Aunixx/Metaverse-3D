@@ -1,0 +1,102 @@
+html {
+  --Magistral-Bold: "Magistral-Bold";
+  --Magistral-Light: "Magistral-Light";
+  --Magistral-BoldItalic: "Magistral-BoldItalic";
+  --Magistral-Book: "Magistral-Book";
+  --Magistral-BookItalic: "Magistral-BookItalic";
+  --Magistral-ExtraBold: "Magistral-ExtraBold";
+  --Magistral-ExtraBoldItalic: "Magistral-ExtraBoldItalic";
+  --Magistral-LightItalic: "Magistral-LightItalic";
+  --Magistral-Medium: "Magistral-Medium";
+  --Magistral-MediumItalic: "Magistral-MediumItalic";
+}
+
+@font-face {
+  font-family: "Magistral-Bold";
+  src: url("../fonts/Magistral-Bold.woff2") format("woff2"),
+    url("../fonts/Magistral-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-Light";
+  src: url("../fonts/Magistral-Light.woff2") format("woff2"),
+    url("../fonts/Magistral-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-BoldItalic";
+  src: url("../fonts/Magistral-BoldItalic.woff2") format("woff2"),
+    url("../fonts/Magistral-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-Book";
+  src: url("../fonts/Magistral-Book.woff2") format("woff2"),
+    url("../fonts/Magistral-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-BookItalic";
+  src: url("../fonts/Magistral-BookItalic.woff2") format("woff2"),
+    url("../fonts/Magistral-BookItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-ExtraBold";
+  src: url("../fonts/Magistral-ExtraBold.woff2") format("woff2"),
+    url("../fonts/Magistral-ExtraBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-ExtraBoldItalic";
+  src: url("../fonts/Magistral-ExtraBoldItalic.woff2") format("woff2"),
+    url("../fonts/Magistral-ExtraBoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-LightItalic";
+  src: url("../fonts/Magistral-LightItalic.woff2") format("woff2"),
+    url("../fonts/Magistral-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-Medium";
+  src: url("../fonts/Magistral-Medium.woff2") format("woff2"),
+    url("../fonts/Magistral-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Magistral-MediumItalic";
+  src: url("../fonts/Magistral-MediumItalic.woff2") format("woff2"),
+    url("../fonts/Magistral-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}

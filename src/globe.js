@@ -52,9 +52,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
       z,
     };
   }
-  useEffect(() => {
-    gsap.from(camera.position, { z: 10, duration: 2 });
-  }, []);
 
   let lat = 30;
   let lng = 10;
@@ -81,10 +78,10 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   };
 
   useLayoutEffect(() => {
-    gsap.from(camera, { zoom: 0.2, duration: 2.5 });
+    gsap.from(camera, { zoom: 0.3, duration: 3 });
   }, []);
   useFrame((state, delta) => {
-    galaxyRef.current.rotation.y += 0.0001;
+    galaxyRef.current.rotation.y += 0.000075;
     globeGroupeRef.current.rotation.y -= rotation;
     state.camera.lookAt(globeRef.current.position);
     lightHolder.current.quaternion.copy(state.camera.quaternion);
