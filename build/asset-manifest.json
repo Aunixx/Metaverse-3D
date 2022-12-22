@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.75297d20.css",
-    "main.js": "/static/js/main.18d8286f.js",
+    "main.css": "/static/css/main.595adb71.css",
+    "main.js": "/static/js/main.051cfb22.js",
     "static/media/celeris.png": "/static/media/celeris.f7a55106dd96756cdee1.png",
     "static/media/ourobora.png": "/static/media/ourobora.26aa3a06e90e2a6931e3.png",
     "static/media/cardano-min.png": "/static/media/cardano-min.9e4c3b489344a848cfdb.png",
     "static/media/cardano-bump.png": "/static/media/cardano-bump.eb18e1c6015e43eced48.png",
+    "static/media/space-sound.mp3": "/static/media/space-sound.5cc84fb176f2f480e6a1.mp3",
     "static/media/galax-6.png": "/static/media/galax-6.6376a942e1ef27fea433.png",
     "static/media/land-pic.svg": "/static/media/land-pic.5a311bf498135b5023450e340ac6003f.svg",
     "static/media/Magistral-ExtraBoldItalic.woff": "/static/media/Magistral-ExtraBoldItalic.91491443daf770c39ea3.woff",
@@ -29,11 +30,11 @@
     "static/media/Magistral-Medium.woff2": "/static/media/Magistral-Medium.78f5c80fea4324241a58.woff2",
     "static/media/Magistral-Light.woff2": "/static/media/Magistral-Light.15bcdb6910c7b3e661b9.woff2",
     "index.html": "/index.html",
-    "main.75297d20.css.map": "/static/css/main.75297d20.css.map",
-    "main.18d8286f.js.map": "/static/js/main.18d8286f.js.map"
+    "main.595adb71.css.map": "/static/css/main.595adb71.css.map",
+    "main.051cfb22.js.map": "/static/js/main.051cfb22.js.map"
   },
   "entrypoints": [
-    "static/css/main.75297d20.css",
-    "static/js/main.18d8286f.js"
+    "static/css/main.595adb71.css",
+    "static/js/main.051cfb22.js"
   ]
 }

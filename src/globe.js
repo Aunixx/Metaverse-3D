@@ -6,7 +6,7 @@ import { BackSide, CineonToneMapping } from "three";
 import bumpMap from "./assets/cardano-bump.png";
 import galaxyImg from "./assets/galax-6.png";
 import { Perf } from "r3f-perf";
-import { Html, OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls, PositionalAudio } from "@react-three/drei";
 import * as THREE from "three";
 import { gsap } from "gsap";
 import { useEffect, useLayoutEffect } from "react";
@@ -15,6 +15,8 @@ import Lead from "./components/lead/lead";
 import CelerisLand from "./assets/land-pic.svg";
 import OuroboraLand from "./assets/land-pic.svg";
 import ZoomInOut from "./components/zoomInOut/zoomInOut";
+import Araba from "./assets/space-sound.mp3";
+import { StyledLoadbarSound } from "./components/sound/soundStyled";
 
 // extend({ OrbitControls });
 
@@ -35,6 +37,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   const [btnOneActive, setBtnOneActive] = useState(true);
   const [btnTwoActive, setBtnTwoActive] = useState(false);
   let [cameraZoom, setCameraZoom] = useState(1);
+  let [soundOn, setSoundOn] = useState(true);
   const manager = new THREE.LoadingManager();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
@@ -92,6 +95,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
 
   return (
     <>
+      {/* <Sound url={Araba} /> */}
       <OrbitControls
         ref={controls}
         maxDistance={
@@ -119,6 +123,14 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
         <pointLight args={[0xffffff, 0.5]} position={[8, 8, 8]} />
       </group>
       <group ref={globeGroupeRef}>
+        {soundOn && (
+          <PositionalAudio
+            url={Araba}
+            loop={true}
+            autoplay={true}
+            distance={1}
+          />
+        )}
         <mesh ref={globeRef}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshStandardMaterial
@@ -126,7 +138,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
             map={texture}
             bumpMap={bump}
             bumpScale={0.09}
-            // color={"red"}
           />
           <Html
             position={[pinPoint.x + 0.02, pinPoint.y, pinPoint.z]}
@@ -242,6 +253,14 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
             <MapView color={btnTwoActive ? "white" : "#A1A7B0"} />
           </button>
         </div>
+      </Html>
+      <Html wrapperClass="soundBtnWrapper">
+        <button className="soundBtn" onClick={() => setSoundOn(!soundOn)}>
+          <StyledLoadbarSound
+            animation={soundOn ? 1.3 : 0}
+            height={soundOn ? 12 : 6}
+          />
+        </button>
       </Html>
     </>
   );

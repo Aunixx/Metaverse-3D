@@ -180,3 +180,18 @@
   z-index: 1 !important;
   display: block !important;
 }
+.soundBtnWrapper {
+  position: fixed;
+  left: calc(100% - 100px) !important;
+  top: calc(100% - 100px) !important;
+  transform: unset !important;
+}
+.soundBtn {
+  background: rgba(19, 34, 57, 0.6);
+  box-shadow: 4px 4px 7px rgba(0, 2, 4, 0.3);
+  border-radius: 8px;
+  height: 66px;
+  border: none;
+  padding: 12px 32px;
+  cursor: pointer;
+}
