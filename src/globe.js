@@ -95,7 +95,9 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
 
   return (
     <>
-      {/* <Sound url={Araba} /> */}
+      {soundOn && (
+        <PositionalAudio url={Araba} loop={true} autoplay={true} distance={2} />
+      )}
       <OrbitControls
         ref={controls}
         maxDistance={
@@ -123,14 +125,6 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
         <pointLight args={[0xffffff, 0.5]} position={[8, 8, 8]} />
       </group>
       <group ref={globeGroupeRef}>
-        {soundOn && (
-          <PositionalAudio
-            url={Araba}
-            loop={true}
-            autoplay={true}
-            distance={1}
-          />
-        )}
         <mesh ref={globeRef}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshStandardMaterial

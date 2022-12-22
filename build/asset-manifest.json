@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.595adb71.css",
-    "main.js": "/static/js/main.051cfb22.js",
+    "main.js": "/static/js/main.c1eedf06.js",
     "static/media/celeris.png": "/static/media/celeris.f7a55106dd96756cdee1.png",
     "static/media/ourobora.png": "/static/media/ourobora.26aa3a06e90e2a6931e3.png",
     "static/media/cardano-min.png": "/static/media/cardano-min.9e4c3b489344a848cfdb.png",
@@ -31,10 +31,10 @@
     "static/media/Magistral-Light.woff2": "/static/media/Magistral-Light.15bcdb6910c7b3e661b9.woff2",
     "index.html": "/index.html",
     "main.595adb71.css.map": "/static/css/main.595adb71.css.map",
-    "main.051cfb22.js.map": "/static/js/main.051cfb22.js.map"
+    "main.c1eedf06.js.map": "/static/js/main.c1eedf06.js.map"
   },
   "entrypoints": [
     "static/css/main.595adb71.css",
-    "static/js/main.051cfb22.js"
+    "static/js/main.c1eedf06.js"
   ]
 }
