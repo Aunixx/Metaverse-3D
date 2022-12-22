@@ -96,7 +96,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   return (
     <>
       {soundOn && (
-        <PositionalAudio url={Araba} loop={true} autoplay={true} distance={2} />
+        <PositionalAudio url={Araba} loop={true} autoplay distance={2} />
       )}
       <OrbitControls
         ref={controls}
