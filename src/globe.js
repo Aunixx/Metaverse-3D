@@ -43,7 +43,7 @@ export default function Globe({
   const [btnOneActive, setBtnOneActive] = useState(true);
   const [btnTwoActive, setBtnTwoActive] = useState(false);
   let [cameraZoom, setCameraZoom] = useState(1);
-  let [soundOn, setSoundOn] = useState(true);
+  let [soundOn, setSoundOn] = useState(false);
   const manager = new THREE.LoadingManager();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
@@ -61,6 +61,7 @@ export default function Globe({
       z,
     };
   }
+
   useEffect(() => {
     if (preloader === false) {
       setSoundOn(true);
