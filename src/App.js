@@ -9,13 +9,35 @@ import Ourobora from "./maps/ourobora";
 import KirrusMap from "./maps/kirrus";
 import Loader from "./components/loader/loader";
 
+function PreLoader({ preloaderHandler }) {
+  return (
+    <div className="preloaderWrapper">
+      <h1 className="loaderHeading">Earthers, Welcome to Kiirus</h1>
+      <p className="loaderParagraph">
+        A planet that is envisioned as a hyper-realistic, 3D, video game
+        paradise. Famous for the intergalactic hyper-racing event, Nitro League
+        Tournaments. Be a part of Kiirus’s first official chance based gameplay
+        on blockchain technology.
+      </p>
+      <span className="loaderHeading">Live - Race - Own</span>
+      <button onClick={() => preloaderHandler()}>Explore</button>
+    </div>
+  );
+}
+
 export default function App() {
   const [isMapView, setIsMapView] = useState("");
   const [kirrusView, setKirrusView] = useState("globe");
+  const [preloader, setPreloader] = useState(true);
+
+  function preloaderHandler() {
+    setPreloader(false);
+  }
 
   return (
     <>
       <Suspense fallback={<Loader />}>
+        {preloader && <PreLoader preloaderHandler={preloaderHandler} />}
         <Canvas flat>
           {isMapView === "" && kirrusView === "globe" && (
             <fog
@@ -49,7 +71,12 @@ export default function App() {
               <Ourobora setIsMapView={setIsMapView} isMapView={isMapView} />
             </OrthographicCamera>
           ) : isMapView === "" && kirrusView === "globe" ? (
-            <Globe setIsMapView={setIsMapView} setKirrusView={setKirrusView} />
+            <Globe
+              setIsMapView={setIsMapView}
+              setKirrusView={setKirrusView}
+              setPreloader={setPreloader}
+              preloader={preloader}
+            />
           ) : (
             <OrthographicCamera
               makeDefault

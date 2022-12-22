@@ -20,7 +20,13 @@ import { StyledLoadbarSound } from "./components/sound/soundStyled";
 
 // extend({ OrbitControls });
 
-export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
+export default function Globe({
+  setIsMapView,
+  isMapView,
+  setKirrusView,
+  setPreloader,
+  preloader,
+}) {
   const { camera, gl } = useThree();
   const galaxyRef = useRef();
   const globeRef = useRef();
@@ -37,7 +43,7 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
   const [btnOneActive, setBtnOneActive] = useState(true);
   const [btnTwoActive, setBtnTwoActive] = useState(false);
   let [cameraZoom, setCameraZoom] = useState(1);
-  let [soundOn, setSoundOn] = useState(false);
+  let [soundOn, setSoundOn] = useState(true);
   const manager = new THREE.LoadingManager();
   const texture = useLoader(TextureLoader, map);
   const bump = useLoader(TextureLoader, bumpMap);
@@ -55,6 +61,11 @@ export default function Globe({ setIsMapView, isMapView, setKirrusView }) {
       z,
     };
   }
+  useEffect(() => {
+    if (preloader === false) {
+      setSoundOn(true);
+    }
+  }, [preloader]);
 
   let lat = 30;
   let lng = 10;

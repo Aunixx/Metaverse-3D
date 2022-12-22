@@ -195,3 +195,22 @@
   padding: 12px 32px;
   cursor: pointer;
 }
+.preloaderWrapper {
+  position: fixed;
+  z-index: 9999999999999;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transform: unset !important;
+  height: 100%;
+  width: 100%;
+  cursor: auto;
+  color: white;
+  background: #00000050;
+  // opacity: 0.5;
+}
