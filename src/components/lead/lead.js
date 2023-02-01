@@ -1,4 +1,6 @@
+import { AiOutlineClose } from "react-icons/ai";
 import "./lead.scss";
+
 export default function Lead({
   landImg,
   landName,
@@ -6,8 +8,8 @@ export default function Lead({
   setIsMapView,
   handleMouseLeave,
   handleMouseOver,
+  controls,
 }) {
-  console.log(setIsMapView);
   return (
     <div className="leadContent">
       <div
@@ -40,12 +42,22 @@ export default function Lead({
           )
         }
       >
+        <button
+          className="cross-btn"
+          onClick={() => handleMouseLeave(0.0007, false)}
+        >
+          <AiOutlineClose />
+        </button>
         <h2 className="landName">{landName}</h2>
+        <img src={landImg} className="img-mob" />
         <h5 className="description">Description</h5>
         <p className="paragraph">{landDescription}</p>
         <div className="btnSection">
           <button
-            onClick={() => setIsMapView(landName)}
+            onClick={() => {
+              setIsMapView(landName);
+              controls.reset();
+            }}
             onTouchStart={() => setIsMapView(landName)}
             className="exploreBtn"
           >

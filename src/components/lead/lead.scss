@@ -11,14 +11,48 @@
   cursor: auto;
   .imageSection {
     align-self: flex-start;
+    @media (max-width: 768px) {
+      display: none;
+    }
+    img {
+      max-width: 200px;
+      border-radius: 12px;
+    }
   }
   .contentSection {
     width: 420px;
     background: #ffffff;
     border-radius: 12px;
     padding: 24px;
+    position: relative;
+    .cross-btn {
+      display: none;
+      border: none;
+      background: none;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+      @media (max-width: 768px) {
+        position: absolute;
+        right: 30px;
+        top: 24px;
+        display: block;
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .img-mob {
+      display: none;
+      border-radius: 12px;
+      @media (max-width: 768px) {
+        display: block;
+        width: 100%;
+        margin-bottom: 24px;
+      }
+    }
     @media (max-width: 768px) {
-      width: 200px;
+      width: calc(100% - 48px);
     }
     h2 {
       font-weight: 400;
@@ -73,12 +107,12 @@
         cursor: pointer;
       }
       .exploreBtn {
-        background: #fa0339;
+        background: #0f5e9c;
         color: white;
       }
       .buyBtn {
-        color: #fa0339;
-        border: 1px solid #fa0339;
+        color: #0f5e9c;
+        border: 1px solid #0f5e9c;
         background-color: transparent;
       }
     }

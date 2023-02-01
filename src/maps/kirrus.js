@@ -9,8 +9,8 @@ import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
 import { Html } from "@react-three/drei";
 import { GlobeView, MapView } from "../assets/svg";
-import CelerisLand from "../assets/land-pic.svg";
-import OuroboraLand from "../assets/land-pic.svg";
+import CelerisLand from "../assets/celeris.png";
+import OuroboraLand from "../assets/ourobora.png";
 import ZoomInOut from "../components/zoomInOut/zoomInOut";
 import Lead from "../components/lead/lead";
 
@@ -30,12 +30,28 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
   const [prevCameraZoom, setPrevCameraZoom] = useState();
   const [zoomLevelWidth, setZoomLevelWidth] = useState(0);
   const [zoomLevelHeight, setZoomLevelHeight] = useState(0);
+  const [points, setPoints] = useState({
+    pointOne: { x: 11, y: 33 },
+    pointTwo: { x: -32, y: -48 },
+  });
+  const [args, setArgs] = useState({ width: 400, height: 200 });
   const [isLead, setIsLead] = useState({
     landImg: "",
     landName: "",
     landDescription: "",
     isViewLead: "",
   });
+
+  useEffect(() => {
+    if (window.innerWidth < 1025) {
+      setArgs({ width: 700, height: 350 });
+      setPoints({
+        pointOne: { x: 15, y: 55 },
+        pointTwo: { x: -54, y: -82 },
+      });
+    }
+  }, []);
+
   function location(p) {
     let lat = (90 - p.lat) * (Math.PI / 180);
     let lng = (p.lng + 180) * (Math.PI / 180);
@@ -67,8 +83,8 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
   useEffect(() => {
     const width = viewport.getCurrentViewport().width / 2;
     const height = viewport.getCurrentViewport().height / 2;
-    setZoomLevelWidth(200 - width);
-    setZoomLevelHeight(100 - height);
+    setZoomLevelWidth(args.width / 2 - width);
+    setZoomLevelHeight(args.height / 2 - height);
   }, [cameraZoom]);
 
   const bind = useDrag(
@@ -118,7 +134,7 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
       />
       <a.group ref={globeRef} {...spring} {...bind()}>
         <Html
-          position={[11, 33, pinPoint2.z]}
+          position={[points.pointOne.x, points.pointOne.y, pinPoint2.z]}
           occlude={[globeRef]}
           center
           wrapperClass="labelPoint"
@@ -136,29 +152,35 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
               )
             }
           >
-            {isLead.landName === "Celeris" ? (
-              <Lead
-                landImg={isLead.landImg}
-                landName={isLead.landName}
-                landDescription={isLead.landDescription}
-                setIsMapView={setIsMapView}
-                handleMouseLeave={handleMouseLeave}
-                handleMouseOver={handleMouseOver}
-              />
-            ) : (
-              <>
-                <div class="midcircle"></div>
-                <div class="circles">
-                  <div class="circle1"></div>
-                  <div class="circle2"></div>
-                  <div class="circle3"></div>
-                </div>
-              </>
-            )}
+            <div class="midcircle"></div>
+            <div class="circles">
+              <div class="circle1"></div>
+              <div class="circle2"></div>
+              <div class="circle3"></div>
+            </div>
           </div>
         </Html>
+        {isLead.landName === "Celeris" && (
+          <Html
+            position={[points.pointOne.x, points.pointOne.y, pinPoint2.z]}
+            occlude={[globeRef]}
+            center
+            wrapperClass="locationCard"
+            distanceFactor={0.2}
+            sprite={true}
+          >
+            <Lead
+              landImg={isLead.landImg}
+              landName={isLead.landName}
+              landDescription={isLead.landDescription}
+              setIsMapView={setIsMapView}
+              handleMouseLeave={handleMouseLeave}
+              handleMouseOver={handleMouseOver}
+            />
+          </Html>
+        )}
         <Html
-          position={[-32, -48, pinPoint.z]}
+          position={[points.pointTwo.x, points.pointTwo.y, pinPoint.z]}
           occlude={[globeRef]}
           center
           wrapperClass="labelPoint"
@@ -176,29 +198,38 @@ export default function KirrusMap({ setIsMapView, setKirrusView }) {
               )
             }
           >
-            {isLead.landName === "Ourobora" ? (
-              <Lead
-                landImg={isLead.landImg}
-                landName={isLead.landName}
-                landDescription={isLead.landDescription}
-                setIsMapView={setIsMapView}
-                handleMouseLeave={handleMouseLeave}
-                handleMouseOver={handleMouseOver}
-              />
-            ) : (
-              <>
-                <div class="midcircle"></div>
-                <div class="circles">
-                  <div class="circle1"></div>
-                  <div class="circle2"></div>
-                  <div class="circle3"></div>
-                </div>
-              </>
-            )}
+            <div class="midcircle"></div>
+            <div class="circles">
+              <div class="circle1"></div>
+              <div class="circle2"></div>
+              <div class="circle3"></div>
+            </div>
           </div>
         </Html>
+        {isLead.landName === "Ourobora" && (
+          <Html
+            position={[points.pointTwo.x, points.pointTwo.y, pinPoint.z]}
+            occlude={[globeRef]}
+            center
+            wrapperClass="locationCard"
+            distanceFactor={0.2}
+            sprite={true}
+          >
+            <Lead
+              landImg={isLead.landImg}
+              landName={isLead.landName}
+              landDescription={isLead.landDescription}
+              setIsMapView={setIsMapView}
+              handleMouseLeave={handleMouseLeave}
+              handleMouseOver={handleMouseOver}
+            />
+          </Html>
+        )}
         <a.mesh>
-          <planeGeometry args={[400, 200]} position={[0, 0, 0]} />
+          <planeGeometry
+            args={[args.width, args.height]}
+            position={[0, 0, 0]}
+          />
           <meshBasicMaterial attach="material" map={texture} />
         </a.mesh>
       </a.group>

@@ -10,6 +10,9 @@ import { useSpring, a } from "@react-spring/three";
 import { Html } from "@react-three/drei";
 import BackBtn from "../components/backBtn/backBtn";
 import ZoomInOut from "../components/zoomInOut/zoomInOut";
+import { Water } from "three/examples/jsm/objects/Water.js";
+
+extend({ Water });
 
 extend({ OrbitControls });
 

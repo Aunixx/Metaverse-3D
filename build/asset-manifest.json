@@ -1,14 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.595adb71.css",
-    "main.js": "/static/js/main.c1eedf06.js",
-    "static/media/celeris.png": "/static/media/celeris.f7a55106dd96756cdee1.png",
+    "main.css": "/static/css/main.46d1b895.css",
+    "main.js": "/static/js/main.c6973a6e.js",
+    "static/media/celeris.png": "/static/media/celeris.79d3acb473c196c11437.png",
     "static/media/ourobora.png": "/static/media/ourobora.26aa3a06e90e2a6931e3.png",
     "static/media/cardano-min.png": "/static/media/cardano-min.9e4c3b489344a848cfdb.png",
+    "static/media/Stars-background.png": "/static/media/Stars-background.5a67083716606bc9d4ad.png",
+    "static/media/celeris_without_trees_min.png": "/static/media/celeris_without_trees_min.80329ef4a069423ef2f4.png",
+    "static/media/normal_map.png": "/static/media/normal_map.1f8969b8f831c3dae7d9.png",
+    "static/media/celeris-plotting.svg": "/static/media/celeris-plotting.244a20bdb372f42e2bcfaf07642f7d3f.svg",
     "static/media/cardano-bump.png": "/static/media/cardano-bump.eb18e1c6015e43eced48.png",
+    "static/media/roads_and_plots.png": "/static/media/roads_and_plots.094d8d048dde5cefd96a.png",
     "static/media/space-sound.mp3": "/static/media/space-sound.5cc84fb176f2f480e6a1.mp3",
+    "static/media/celeris_trace_map.jpg": "/static/media/celeris_trace_map.7e4dc44f703173cfda9a.jpg",
+    "static/media/roads-only.png": "/static/media/roads-only.41c6629d1edae5f9e678.png",
     "static/media/galax-6.png": "/static/media/galax-6.6376a942e1ef27fea433.png",
-    "static/media/land-pic.svg": "/static/media/land-pic.5a311bf498135b5023450e340ac6003f.svg",
+    "static/media/celeris_plots.svg": "/static/media/celeris_plots.5310cee8a5c73154b727927cb53533b1.svg",
+    "static/media/celeris-min.png": "/static/media/celeris-min.8fcfc878aadeb236b9a3.png",
+    "static/media/ourobora-min.png": "/static/media/ourobora-min.3cdca5bb038dcf4b0a50.png",
+    "static/media/small-land-deed.png": "/static/media/small-land-deed.07675cf830853bfdaa02.png",
+    "static/media/medium-land-deed.png": "/static/media/medium-land-deed.a7b7c3128faea6209ea5.png",
+    "static/media/large-land-deed.png": "/static/media/large-land-deed.91ed3eaccd486430d416.png",
     "static/media/Magistral-ExtraBoldItalic.woff": "/static/media/Magistral-ExtraBoldItalic.91491443daf770c39ea3.woff",
     "static/media/Magistral-BoldItalic.woff": "/static/media/Magistral-BoldItalic.ef46b24165e375ec7b97.woff",
     "static/media/Magistral-BookItalic.woff": "/static/media/Magistral-BookItalic.b502d710104b3ddad1c6.woff",
@@ -30,11 +42,12 @@
     "static/media/Magistral-Medium.woff2": "/static/media/Magistral-Medium.78f5c80fea4324241a58.woff2",
     "static/media/Magistral-Light.woff2": "/static/media/Magistral-Light.15bcdb6910c7b3e661b9.woff2",
     "index.html": "/index.html",
-    "main.595adb71.css.map": "/static/css/main.595adb71.css.map",
-    "main.c1eedf06.js.map": "/static/js/main.c1eedf06.js.map"
+    "static/media/Plot-Rectangle.svg": "/static/media/Plot-Rectangle.781cba54356a634d79e8d79837177a0c.svg",
+    "main.46d1b895.css.map": "/static/css/main.46d1b895.css.map",
+    "main.c6973a6e.js.map": "/static/js/main.c6973a6e.js.map"
   },
   "entrypoints": [
-    "static/css/main.595adb71.css",
-    "static/js/main.c1eedf06.js"
+    "static/css/main.46d1b895.css",
+    "static/js/main.c6973a6e.js"
   ]
 }

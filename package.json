@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@react-spring/three": "^9.5.5",
+    "@react-three/drei": "^9.47.1",
     "@react-three/fiber": "8.8",
     "@react-three/postprocessing": "^2.7.0",
     "@react-three/rapier": "^0.11.1",
@@ -22,12 +23,17 @@
     "r3f-perf": "^6.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
+    "react-speech-kit": "^3.0.1",
     "react-spring": "^9.5.5",
+    "react-typewriter-effect": "^1.1.0",
     "react-use-gesture": "^9.1.3",
     "sass": "^1.57.0",
     "styled-components": "^5.3.6",
-    "three": "^0.145.0"
+    "three": "^0.145.0",
+    "typewriter-effect": "^2.19.0",
+    "vite-plugin-string": "^1.2.1"
   },
   "browserslist": {
     "production": [
