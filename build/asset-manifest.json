@@ -1,8 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.46d1b895.css",
-    "main.js": "/static/js/main.c6973a6e.js",
-    "static/media/celeris.png": "/static/media/celeris.79d3acb473c196c11437.png",
+    "main.js": "/static/js/main.60562594.js",
     "static/media/ourobora.png": "/static/media/ourobora.26aa3a06e90e2a6931e3.png",
     "static/media/cardano-min.png": "/static/media/cardano-min.9e4c3b489344a848cfdb.png",
     "static/media/Stars-background.png": "/static/media/Stars-background.5a67083716606bc9d4ad.png",
@@ -44,10 +43,10 @@
     "index.html": "/index.html",
     "static/media/Plot-Rectangle.svg": "/static/media/Plot-Rectangle.781cba54356a634d79e8d79837177a0c.svg",
     "main.46d1b895.css.map": "/static/css/main.46d1b895.css.map",
-    "main.c6973a6e.js.map": "/static/js/main.c6973a6e.js.map"
+    "main.60562594.js.map": "/static/js/main.60562594.js.map"
   },
   "entrypoints": [
     "static/css/main.46d1b895.css",
-    "static/js/main.c6973a6e.js"
+    "static/js/main.60562594.js"
   ]
 }

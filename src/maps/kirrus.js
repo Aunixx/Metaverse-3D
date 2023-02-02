@@ -9,8 +9,8 @@ import { useGesture, useDrag } from "react-use-gesture";
 import { useSpring, a } from "@react-spring/three";
 import { Html } from "@react-three/drei";
 import { GlobeView, MapView } from "../assets/svg";
-import CelerisLand from "../assets/celeris.png";
-import OuroboraLand from "../assets/ourobora.png";
+import CelerisLand from "../assets/celeris-min.png";
+import OuroboraLand from "../assets/ourobora-min.png";
 import ZoomInOut from "../components/zoomInOut/zoomInOut";
 import Lead from "../components/lead/lead";
 
