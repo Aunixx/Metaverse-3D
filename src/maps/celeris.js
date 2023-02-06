@@ -90,77 +90,77 @@ function Instances({ count = 20000, temp = new THREE.Object3D() }) {
   const color = useMemo(() => new THREE.Color().setHex(0x00ff), []);
   useEffect(() => {
     // Set positions
-    for (let i = 0; i < count; i++) {
-      // if (CelerisPlotting[i].size === "small") {
-      //   temp.scale.set(0.35, 0.35, 0.35);
-      // } else if (CelerisPlotting[i].size === "medium") {
-      //   temp.scale.set(0.67, 0.67, 0.67);
-      // } else {
-      //   temp.scale.set(1, 1, 1);
-      // }
-      // if (i % 4 === 1) {
-      //   temp.position.set(
-      //     CelerisPlotting[i].position.x,
-      //     CelerisPlotting[i].position.y,
-      //     0.003
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      //   temp.opacity = 0.5;
-      // } else if (i % 4 === 2) {
-      //   temp.position.set(
-      //     CelerisPlotting[i].position.x,
-      //     CelerisPlotting[i].position.y,
-      //     0.003
-      //   );
-      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      // } else if (i % 4 === 3) {
-      //   temp.position.set(
-      //     CelerisPlotting[i].position.x,
-      //     CelerisPlotting[i].position.y,
-      //     0.003
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      // } else if (i % 4 === 0) {
-      //   temp.position.set(
-      //     CelerisPlotting[i].position.x,
-      //     CelerisPlotting[i].position.y,
-      //     0.003
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      // }
+    for (let i = 0; i < CelerisPlotting.length; i++) {
+      if (CelerisPlotting[i].size === "small") {
+        temp.scale.set(0.35, 0.35, 0.35);
+      } else if (CelerisPlotting[i].size === "medium") {
+        temp.scale.set(0.67, 0.67, 0.67);
+      } else {
+        temp.scale.set(1, 1, 1);
+      }
       if (i % 4 === 1) {
-        temp.position.set(-Math.random() * 100, -Math.random() * 100, 0.003);
+        temp.position.set(
+          CelerisPlotting[i].position.x,
+          CelerisPlotting[i].position.y,
+          0.003
+        );
         color.r = Math.random() * 1;
         color.g = Math.random() * 1;
         color.b = Math.random() * 1;
+        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+        temp.opacity = 0.5;
       } else if (i % 4 === 2) {
-        temp.position.set(-Math.random() * 100, Math.random() * 100, 0.003);
+        temp.position.set(
+          CelerisPlotting[i].position.x,
+          CelerisPlotting[i].position.y,
+          0.003
+        );
+        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
         color.r = Math.random() * 1;
         color.g = Math.random() * 1;
         color.b = Math.random() * 1;
       } else if (i % 4 === 3) {
-        temp.position.set(Math.random() * 100, -Math.random() * 100, 0.003);
+        temp.position.set(
+          CelerisPlotting[i].position.x,
+          CelerisPlotting[i].position.y,
+          0.003
+        );
         color.r = Math.random() * 1;
         color.g = Math.random() * 1;
         color.b = Math.random() * 1;
+        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
       } else if (i % 4 === 0) {
-        temp.position.set(Math.random() * 100, Math.random() * 100, 0.003);
+        temp.position.set(
+          CelerisPlotting[i].position.x,
+          CelerisPlotting[i].position.y,
+          0.003
+        );
         color.r = Math.random() * 1;
         color.g = Math.random() * 1;
         color.b = Math.random() * 1;
+        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
       }
+      // if (i % 4 === 1) {
+      //   temp.position.set(-Math.random() * 100, -Math.random() * 100, 0.003);
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      // } else if (i % 4 === 2) {
+      //   temp.position.set(-Math.random() * 100, Math.random() * 100, 0.003);
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      // } else if (i % 4 === 3) {
+      //   temp.position.set(Math.random() * 100, -Math.random() * 100, 0.003);
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      // } else if (i % 4 === 0) {
+      //   temp.position.set(Math.random() * 100, Math.random() * 100, 0.003);
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      // }
       temp.updateMatrix();
       ref.current.setMatrixAt(i, temp.matrix);
       ref.current.setColorAt(i, color);
