@@ -55,13 +55,13 @@ export const CelerisPlotting = [
     position: { x: 14.792, y: -13.431 },
     rotationZ: 0,
   },
-  {
-    plotId: 8,
-    size: "small",
-    args: { width: 0.2, height: 0.2 },
-    position: { x: 15.012, y: -13.431 },
-    rotationZ: 0,
-  },
+  // {
+  //   plotId: 8,
+  //   size: "small",
+  //   args: { width: 0.2, height: 0.2 },
+  //   position: { x: 15.012, y: -13.431 },
+  //   rotationZ: 0,
+  // },
   {
     plotId: 9,
     size: "small",
@@ -2456,13 +2456,13 @@ export const CelerisPlotting = [
     position: { x: 18.54, y: -18.92 },
     rotationZ: -0.88,
   },
-  {
-    plotId: 354,
-    size: "medium",
-    args: { width: 0.4, height: 0.4 },
-    position: { x: 18.54, y: -18.92 },
-    rotationZ: -0.88,
-  },
+  // {
+  //   plotId: 354,
+  //   size: "medium",
+  //   args: { width: 0.4, height: 0.4 },
+  //   position: { x: 18.54, y: -18.92 },
+  //   rotationZ: -0.88,
+  // },
   {
     plotId: 355,
     size: "medium",

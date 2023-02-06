@@ -41,7 +41,7 @@ const CameraController = ({ mapRef }) => {
     const controls = new OrbitControls(camera, gl.domElement);
     camera.rotation.set(-1.56, 0, 0);
     gsap.to(camera.position, { y: 50, duration: 2 });
-    controls.minDistance = 5;
+    controls.minDistance = 3.5;
     controls.maxDistance = 50;
     controls.autoRotate = false;
     controls.panSpeed = 2.5;
@@ -67,11 +67,10 @@ const CameraController = ({ mapRef }) => {
         110 - e.target.object.position.y - 1
       );
       if (e.target.object.position.y < controls.maxDistance) {
-        camera.rotateX(
-          Math.PI / e.target.object.position.y < 0.5
-            ? Math.PI / e.target.object.position.y
-            : 0.5
-        );
+        camera.rotateX(Math.PI / e.target.object.position.y);
+        // camera.rotateX(Math.PI / e.target.object.position.y < 0.5
+        // ? Math.PI / e.target.object.position.y
+        // : 0.5);
       }
       _v.copy(controls.target);
       controls.target.clamp(minPan, maxPan);
@@ -85,6 +84,186 @@ const CameraController = ({ mapRef }) => {
   return null;
 };
 
+function Instances({ count = 20000, temp = new THREE.Object3D() }) {
+  const ref = useRef();
+  const texture = useLoader(TextureLoader, map);
+  const color = useMemo(() => new THREE.Color().setHex(0x00ff), []);
+  useEffect(() => {
+    // Set positions
+    for (let i = 0; i < count; i++) {
+      // if (CelerisPlotting[i].size === "small") {
+      //   temp.scale.set(0.35, 0.35, 0.35);
+      // } else if (CelerisPlotting[i].size === "medium") {
+      //   temp.scale.set(0.67, 0.67, 0.67);
+      // } else {
+      //   temp.scale.set(1, 1, 1);
+      // }
+      // if (i % 4 === 1) {
+      //   temp.position.set(
+      //     CelerisPlotting[i].position.x,
+      //     CelerisPlotting[i].position.y,
+      //     0.003
+      //   );
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+      //   temp.opacity = 0.5;
+      // } else if (i % 4 === 2) {
+      //   temp.position.set(
+      //     CelerisPlotting[i].position.x,
+      //     CelerisPlotting[i].position.y,
+      //     0.003
+      //   );
+      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      // } else if (i % 4 === 3) {
+      //   temp.position.set(
+      //     CelerisPlotting[i].position.x,
+      //     CelerisPlotting[i].position.y,
+      //     0.003
+      //   );
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+      // } else if (i % 4 === 0) {
+      //   temp.position.set(
+      //     CelerisPlotting[i].position.x,
+      //     CelerisPlotting[i].position.y,
+      //     0.003
+      //   );
+      //   color.r = Math.random() * 1;
+      //   color.g = Math.random() * 1;
+      //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+      // }
+      if (i % 4 === 1) {
+        temp.position.set(-Math.random() * 100, -Math.random() * 100, 0.003);
+        color.r = Math.random() * 1;
+        color.g = Math.random() * 1;
+        color.b = Math.random() * 1;
+      } else if (i % 4 === 2) {
+        temp.position.set(-Math.random() * 100, Math.random() * 100, 0.003);
+        color.r = Math.random() * 1;
+        color.g = Math.random() * 1;
+        color.b = Math.random() * 1;
+      } else if (i % 4 === 3) {
+        temp.position.set(Math.random() * 100, -Math.random() * 100, 0.003);
+        color.r = Math.random() * 1;
+        color.g = Math.random() * 1;
+        color.b = Math.random() * 1;
+      } else if (i % 4 === 0) {
+        temp.position.set(Math.random() * 100, Math.random() * 100, 0.003);
+        color.r = Math.random() * 1;
+        color.g = Math.random() * 1;
+        color.b = Math.random() * 1;
+      }
+      temp.updateMatrix();
+      ref.current.setMatrixAt(i, temp.matrix);
+      ref.current.setColorAt(i, color);
+    }
+    // Update the instance
+    ref.current.instanceMatrix.needsUpdate = true;
+    ref.current.instanceColor.needsUpdate = true;
+  }, []);
+  return (
+    <instancedMesh
+      ref={ref}
+      args={[null, null, count]}
+      onClick={(e) => {
+        e.stopPropagation();
+        const temp = new THREE.Object3D();
+        for (let i = 0; i < CelerisPlotting.length; i++) {
+          if (i === e.instanceId) {
+            if (CelerisPlotting[i].size === "small") {
+              temp.scale.set(0.35, 0.35, 10);
+            } else if (CelerisPlotting[i].size === "medium") {
+              temp.scale.set(0.7, 0.7, 15);
+            } else {
+              temp.scale.set(1, 1, 20);
+            }
+            temp.position.set(
+              CelerisPlotting[i].position.x,
+              CelerisPlotting[i].position.y,
+              0.003
+            );
+            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+            temp.updateMatrix();
+            ref.current.setMatrixAt(i, temp.matrix);
+            ref.current.instanceMatrix.needsUpdate = true;
+          }
+        }
+        ref.current.updateMatrix();
+        ref.current.setColorAt(e.instanceId, color);
+        ref.current.instanceColor.needsUpdate = true;
+      }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        const temp = new THREE.Object3D();
+        const color = new THREE.Color().setHex(0x0300ff);
+
+        for (let i = 0; i < CelerisPlotting.length; i++) {
+          if (i === e.instanceId) {
+            if (CelerisPlotting[i].size === "small") {
+              temp.scale.set(0.35, 0.35, 10);
+            } else if (CelerisPlotting[i].size === "medium") {
+              temp.scale.set(0.7, 0.7, 15);
+            } else {
+              temp.scale.set(1, 1, 20);
+            }
+            // temp.scale.set(1.5, 1.5, 1.5);
+            temp.position.set(
+              CelerisPlotting[i].position.x,
+              CelerisPlotting[i].position.y,
+              0.003
+            );
+            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+            temp.updateMatrix();
+            ref.current.setMatrixAt(i, temp.matrix);
+            ref.current.instanceMatrix.needsUpdate = true;
+          }
+        }
+        ref.current.updateMatrix();
+        // ref.current.setColorAt(e.instanceId, color);
+        ref.current.instanceColor.needsUpdate = true;
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        const temp = new THREE.Object3D();
+        for (let i = 0; i < CelerisPlotting.length; i++) {
+          if (i === e.instanceId) {
+            if (CelerisPlotting[i].size === "small") {
+              // temp.scale.set(0.35, 0.35, 0.35);
+              gsap.from(temp.scale, { x: 0.35, y: 0.35, z: 0.35, duration: 4 });
+            } else if (CelerisPlotting[i].size === "medium") {
+              temp.scale.set(0.7, 0.7, 0.7);
+            } else {
+              temp.scale.set(1, 1, 1);
+            }
+            temp.position.set(
+              CelerisPlotting[i].position.x,
+              CelerisPlotting[i].position.y,
+              0.003
+            );
+            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+            temp.updateMatrix();
+            ref.current.setMatrixAt(i, temp.matrix);
+            ref.current.instanceMatrix.needsUpdate = true;
+          }
+        }
+        ref.current.updateMatrix();
+        // ref.current.setColorAt(e.instanceId, color);
+        ref.current.instanceColor.needsUpdate = true;
+      }}
+    >
+      <boxGeometry args={[0.58, 0.58, 0.2]} />
+      <meshBasicMaterial />
+    </instancedMesh>
+  );
+}
 export default function Celeris({ setIsMapView }) {
   const { camera, gl } = useThree();
   const [zoomIn, setZoomIn] = useState(8);
@@ -93,6 +272,7 @@ export default function Celeris({ setIsMapView }) {
   const globeRef = useRef();
   const plotGeometryRef = useRef();
   const plotMaterialRef = useRef();
+  const plotMeshRef = useRef();
   const texture = useLoader(TextureLoader, map);
   const traceMap = useLoader(TextureLoader, CelerisTraceMap);
   const roadsOnly = useLoader(TextureLoader, CelerisRoadsOnly);
@@ -107,7 +287,7 @@ export default function Celeris({ setIsMapView }) {
   const [zoomLevelWidth, setZoomLevelWidth] = useState(0);
   const [zoomLevelHeight, setZoomLevelHeight] = useState(0);
   const [args, setArgs] = useState({ width: 200, height: 200 });
-  const [items, setItems] = useState(Array(10000).fill(0));
+  const [items, setItems] = useState(Array(7000).fill(0));
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
@@ -199,7 +379,6 @@ export default function Celeris({ setIsMapView }) {
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     camera.updateProjectionMatrix();
   });
-  // console.log(plotGeometryRef);
   const plotMaterial = useMemo(
     () => new THREE.MeshBasicMaterial({ color: "#FFF" }),
     []
@@ -216,6 +395,10 @@ export default function Celeris({ setIsMapView }) {
     () => new THREE.PlaneGeometry(0.2, 0.2),
     []
   );
+  // const plotMesh = useMemo(
+  //   () => new THREE.InstancedMesh(plotLargeGeometry, plotMaterial, 50),
+  //   []
+  // );
   return (
     <>
       <Perf />
@@ -297,16 +480,14 @@ export default function Celeris({ setIsMapView }) {
           opacity={1}
           ref={plotMaterialRef}
         /> */}
-        {items.map((item, index) => {
-          return (
-            <mesh
-              geometry={plotLargeGeometry}
-              material={plotMaterial}
-              key={uuid()}
-              position={[0, 0, 0]}
-            ></mesh>
-          );
-        })}
+        <Instances />
+
+        {/* <mesh
+          material={plotMaterial}
+          geometry={plotLargeGeometry}
+          position={[2, 2, 0]}
+        /> */}
+
         {/* {CelerisPlotting?.map((plot, index) => {
           if (filters === "All") {
             return (
