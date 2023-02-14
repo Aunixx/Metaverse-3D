@@ -25,6 +25,9 @@ import { CelerisPlotting } from "../plots/celerisPlotting.jsx";
 import { PlotFilter } from "../components/plotFilter/PlotFilter";
 import { PlotLead } from "../components/plotLead/PlotLead";
 import uuid from "react-uuid";
+import { CelerisPlottingScript } from "../plots/CelerisPlottingScript";
+import { ZavosPlotting } from "../plots/ZavosPlotting_all";
+import "../style.scss";
 
 extend({ OrbitControls });
 
@@ -35,14 +38,15 @@ const CameraController = ({ mapRef }) => {
   if (mapRef) {
     // gsap.to(camera.position, { y: 50, duration: 1 });
   }
+  camera.far = 2000;
   useEffect(() => {
     camera.position.set(0, 0, 0);
-    camera.rotation.set(-1.56, 0, 0);
+    camera.rotation.set(-1.57, 0, 0);
     const controls = new OrbitControls(camera, gl.domElement);
-    camera.rotation.set(-1.56, 0, 0);
-    gsap.to(camera.position, { y: 50, duration: 2 });
-    controls.minDistance = 3.5;
-    controls.maxDistance = 50;
+    camera.rotation.set(-1.57, 0, 0);
+    gsap.to(camera.position, { y: 1900, duration: 2 });
+    controls.minDistance = 100;
+    controls.maxDistance = 1900;
     controls.autoRotate = false;
     controls.panSpeed = 2.5;
     controls.zoomSpeed = 2.5;
@@ -57,20 +61,22 @@ const CameraController = ({ mapRef }) => {
     controls.maxPolarAngle = 0;
     controls.addEventListener("change", function (e) {
       var minPan = new THREE.Vector3(
-        -65 + e.target.object.position.y + 1,
+        -2900 + e.target.object.position.y + 1,
         0,
-        -104 + e.target.object.position.y + 1
+        -4440 + e.target.object.position.y + 1
       );
       var maxPan = new THREE.Vector3(
-        65 - e.target.object.position.y - 1,
+        2900 - e.target.object.position.y - 1,
         0,
-        110 - e.target.object.position.y - 1
+        4440 - e.target.object.position.y - 1
       );
       if (e.target.object.position.y < controls.maxDistance) {
         camera.rotateX(Math.PI / e.target.object.position.y);
-        // camera.rotateX(Math.PI / e.target.object.position.y < 0.5
-        // ? Math.PI / e.target.object.position.y
-        // : 0.5);
+        // camera.rotateX(
+        //   Math.PI / e.target.object.position.y < 0.5
+        //     ? Math.PI / e.target.object.position.y
+        //     : 0.5
+        // );
       }
       _v.copy(controls.target);
       controls.target.clamp(minPan, maxPan);
@@ -86,180 +92,178 @@ const CameraController = ({ mapRef }) => {
 
 function Instances({ count = 20000, temp = new THREE.Object3D() }) {
   const ref = useRef();
-  const texture = useLoader(TextureLoader, map);
   const color = useMemo(() => new THREE.Color().setHex(0x00ff), []);
+
   useEffect(() => {
-    // Set positions
-    for (let i = 0; i < CelerisPlotting.length; i++) {
-      if (CelerisPlotting[i].size === "small") {
+    for (let i = 0; i < ZavosPlotting.length; i++) {
+      if (ZavosPlotting[i].type === "Small") {
         temp.scale.set(0.35, 0.35, 0.35);
-      } else if (CelerisPlotting[i].size === "medium") {
+      } else if (ZavosPlotting[i].type === "Medium") {
         temp.scale.set(0.67, 0.67, 0.67);
+      } else if (ZavosPlotting[i].type === "XL") {
+        temp.scale.set(2, 2, 2);
+      } else if (ZavosPlotting[i].type === "XXL") {
+        temp.scale.set(2.9, 2.9, 2.9);
       } else {
         temp.scale.set(1, 1, 1);
       }
-      if (i % 4 === 1) {
-        temp.position.set(
-          CelerisPlotting[i].position.x,
-          CelerisPlotting[i].position.y,
-          0.003
-        );
+      temp.position.set(
+        ZavosPlotting[i].position.x - 2000,
+        -(ZavosPlotting[i].position.y - 2000),
+        0.7
+      );
+      if (ZavosPlotting[i].commercial === true) {
+        color.r = 2;
+        color.g = 2;
+        color.b = 2;
+      } else {
         color.r = Math.random() * 1;
         color.g = Math.random() * 1;
         color.b = Math.random() * 1;
-        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-        temp.opacity = 0.5;
-      } else if (i % 4 === 2) {
-        temp.position.set(
-          CelerisPlotting[i].position.x,
-          CelerisPlotting[i].position.y,
-          0.003
-        );
-        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-        color.r = Math.random() * 1;
-        color.g = Math.random() * 1;
-        color.b = Math.random() * 1;
-      } else if (i % 4 === 3) {
-        temp.position.set(
-          CelerisPlotting[i].position.x,
-          CelerisPlotting[i].position.y,
-          0.003
-        );
-        color.r = Math.random() * 1;
-        color.g = Math.random() * 1;
-        color.b = Math.random() * 1;
-        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      } else if (i % 4 === 0) {
-        temp.position.set(
-          CelerisPlotting[i].position.x,
-          CelerisPlotting[i].position.y,
-          0.003
-        );
-        color.r = Math.random() * 1;
-        color.g = Math.random() * 1;
-        color.b = Math.random() * 1;
-        temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
       }
+      temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
       // if (i % 4 === 1) {
-      //   temp.position.set(-Math.random() * 100, -Math.random() * 100, 0.003);
+      //   temp.position.set(
+      //     ZavosPlotting[i].position.x,
+      //     -ZavosPlotting[i].position.y,
+      //     0.7
+      //   );
       //   color.r = Math.random() * 1;
       //   color.g = Math.random() * 1;
       //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
       // } else if (i % 4 === 2) {
-      //   temp.position.set(-Math.random() * 100, Math.random() * 100, 0.003);
+      //   temp.position.set(
+      //     ZavosPlotting[i].position.x,
+      //     -ZavosPlotting[i].position.y,
+      //     0.7
+      //   );
+      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
       //   color.r = Math.random() * 1;
       //   color.g = Math.random() * 1;
       //   color.b = Math.random() * 1;
       // } else if (i % 4 === 3) {
-      //   temp.position.set(Math.random() * 100, -Math.random() * 100, 0.003);
+      //   temp.position.set(
+      //     ZavosPlotting[i].position.x,
+      //     -ZavosPlotting[i].position.y,
+      //     0.7
+      //   );
       //   color.r = Math.random() * 1;
       //   color.g = Math.random() * 1;
       //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
       // } else if (i % 4 === 0) {
-      //   temp.position.set(Math.random() * 100, Math.random() * 100, 0.003);
+      //   temp.position.set(
+      //     ZavosPlotting[i].position.x,
+      //     -ZavosPlotting[i].position.y,
+      //     0.7
+      //   );
       //   color.r = Math.random() * 1;
       //   color.g = Math.random() * 1;
       //   color.b = Math.random() * 1;
+      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
       // }
       temp.updateMatrix();
       ref.current.setMatrixAt(i, temp.matrix);
       ref.current.setColorAt(i, color);
     }
-    // Update the instance
     ref.current.instanceMatrix.needsUpdate = true;
     ref.current.instanceColor.needsUpdate = true;
   }, []);
   return (
     <instancedMesh
       ref={ref}
-      args={[null, null, count]}
-      onClick={(e) => {
-        e.stopPropagation();
-        const temp = new THREE.Object3D();
-        for (let i = 0; i < CelerisPlotting.length; i++) {
-          if (i === e.instanceId) {
-            if (CelerisPlotting[i].size === "small") {
-              temp.scale.set(0.35, 0.35, 10);
-            } else if (CelerisPlotting[i].size === "medium") {
-              temp.scale.set(0.7, 0.7, 15);
-            } else {
-              temp.scale.set(1, 1, 20);
-            }
-            temp.position.set(
-              CelerisPlotting[i].position.x,
-              CelerisPlotting[i].position.y,
-              0.003
-            );
-            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-            temp.updateMatrix();
-            ref.current.setMatrixAt(i, temp.matrix);
-            ref.current.instanceMatrix.needsUpdate = true;
-          }
-        }
-        ref.current.updateMatrix();
-        ref.current.setColorAt(e.instanceId, color);
-        ref.current.instanceColor.needsUpdate = true;
-      }}
-      onPointerOver={(e) => {
-        e.stopPropagation();
-        const temp = new THREE.Object3D();
-        const color = new THREE.Color().setHex(0x0300ff);
+      args={[null, null, ZavosPlotting.length]}
+      // onClick={(e) => {
+      //   e.stopPropagation();
+      //   const temp = new THREE.Object3D();
+      //   for (let i = 0; i < CelerisPlottingScript.length; i++) {
+      //     if (i === e.instanceId) {
+      //       console.log(CelerisPlottingScript[i]);
+      //       if (CelerisPlottingScript[i].name.includes("small")) {
+      //         temp.scale.set(0.35, 0.35, 5);
+      //       } else if (CelerisPlottingScript[i].name.includes("Medium")) {
+      //         temp.scale.set(0.7, 0.7, 5);
+      //       } else {
+      //         temp.scale.set(1, 1, 5);
+      //       }
+      //       temp.position.set(
+      //         CelerisPlottingScript[i].position.x,
+      //         CelerisPlottingScript[i].position.y,
+      //         0.003
+      //       );
+      //       temp.rotation.set(0, 0, CelerisPlottingScript[i].rotation.radian);
+      //       temp.updateMatrix();
+      //       ref.current.setMatrixAt(i, temp.matrix);
+      //       ref.current.instanceMatrix.needsUpdate = true;
+      //     }
+      //   }
+      //   ref.current.updateMatrix();
+      //   // ref.current.setColorAt(e.instanceId, color);
+      //   ref.current.instanceColor.needsUpdate = true;
+      // }}
+      // onPointerEnter={(e) => {
+      //   e.stopPropagation();
+      //   const temp = new THREE.Object3D();
+      //   const color = new THREE.Color().setHex(0x0300ff);
 
-        for (let i = 0; i < CelerisPlotting.length; i++) {
-          if (i === e.instanceId) {
-            if (CelerisPlotting[i].size === "small") {
-              temp.scale.set(0.35, 0.35, 10);
-            } else if (CelerisPlotting[i].size === "medium") {
-              temp.scale.set(0.7, 0.7, 15);
-            } else {
-              temp.scale.set(1, 1, 20);
-            }
-            // temp.scale.set(1.5, 1.5, 1.5);
-            temp.position.set(
-              CelerisPlotting[i].position.x,
-              CelerisPlotting[i].position.y,
-              0.003
-            );
-            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-            temp.updateMatrix();
-            ref.current.setMatrixAt(i, temp.matrix);
-            ref.current.instanceMatrix.needsUpdate = true;
-          }
-        }
-        ref.current.updateMatrix();
-        // ref.current.setColorAt(e.instanceId, color);
-        ref.current.instanceColor.needsUpdate = true;
-      }}
-      onPointerOut={(e) => {
-        e.stopPropagation();
-        const temp = new THREE.Object3D();
-        for (let i = 0; i < CelerisPlotting.length; i++) {
-          if (i === e.instanceId) {
-            if (CelerisPlotting[i].size === "small") {
-              // temp.scale.set(0.35, 0.35, 0.35);
-              gsap.from(temp.scale, { x: 0.35, y: 0.35, z: 0.35, duration: 4 });
-            } else if (CelerisPlotting[i].size === "medium") {
-              temp.scale.set(0.7, 0.7, 0.7);
-            } else {
-              temp.scale.set(1, 1, 1);
-            }
-            temp.position.set(
-              CelerisPlotting[i].position.x,
-              CelerisPlotting[i].position.y,
-              0.003
-            );
-            temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-            temp.updateMatrix();
-            ref.current.setMatrixAt(i, temp.matrix);
-            ref.current.instanceMatrix.needsUpdate = true;
-          }
-        }
-        ref.current.updateMatrix();
-        // ref.current.setColorAt(e.instanceId, color);
-        ref.current.instanceColor.needsUpdate = true;
-      }}
+      //   for (let i = 0; i < CelerisPlottingScript.length; i++) {
+      //     if (i === e.instanceId) {
+      //       if (CelerisPlottingScript[i].name.includes("small")) {
+      //         temp.scale.set(0.35, 0.35, 10);
+      //       } else if (CelerisPlottingScript[i].name.includes("Medium")) {
+      //         temp.scale.set(0.7, 0.7, 15);
+      //       } else {
+      //         temp.scale.set(1, 1, 20);
+      //       }
+      //       // temp.scale.set(1.5, 1.5, 1.5);
+      //       temp.position.set(
+      //         CelerisPlottingScript[i].position.x,
+      //         CelerisPlottingScript[i].position.y,
+      //         0.003
+      //       );
+      //       temp.rotation.set(0, 0, CelerisPlottingScript[i].rotation.radian);
+      //       temp.updateMatrix();
+      //       ref.current.setMatrixAt(i, temp.matrix);
+      //       ref.current.instanceMatrix.needsUpdate = true;
+      //     }
+      //   }
+      //   ref.current.updateMatrix();
+      //   // ref.current.setColorAt(e.instanceId, color);
+      //   ref.current.instanceColor.needsUpdate = true;
+      //   document.querySelector("#root").style.cursor = "pointer";
+      // }}
+      // onPointerLeave={(e) => {
+      //   e.stopPropagation();
+      //   const temp = new THREE.Object3D();
+      //   for (let i = 0; i < CelerisPlotting.length; i++) {
+      //     if (i === e.instanceId) {
+      //       if (CelerisPlotting[i].size === "small") {
+      //         // temp.scale.set(0.35, 0.35, 0.35);
+      //         gsap.from(temp.scale, { x: 0.35, y: 0.35, z: 0.35, duration: 4 });
+      //       } else if (CelerisPlotting[i].size === "medium") {
+      //         temp.scale.set(0.7, 0.7, 0.7);
+      //       } else {
+      //         temp.scale.set(1, 1, 1);
+      //       }
+      //       temp.position.set(
+      //         CelerisPlotting[i].position.x,
+      //         CelerisPlotting[i].position.y,
+      //         0.003
+      //       );
+      //       temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
+      //       temp.updateMatrix();
+      //       ref.current.setMatrixAt(i, temp.matrix);
+      //       ref.current.instanceMatrix.needsUpdate = true;
+      //     }
+      //   }
+      //   ref.current.updateMatrix();
+      //   // ref.current.setColorAt(e.instanceId, color);
+      //   ref.current.instanceColor.needsUpdate = true;
+      //   document.querySelector("#root").style.cursor = "grab";
+      // }}
     >
-      <boxGeometry args={[0.58, 0.58, 0.2]} />
+      <planeGeometry args={[23, 23]} />
       <meshBasicMaterial />
     </instancedMesh>
   );
@@ -348,14 +352,14 @@ export default function Celeris({ setIsMapView }) {
     }
   );
 
-  const options = useMemo(() => {
-    return {
-      x: { value: 0, min: 0, max: 100, step: 0.01 },
-      y: { value: 0, min: -100, max: 100, step: 0.01 },
-      z: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-      rotateZ: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-    };
-  }, []);
+  // const options = useMemo(() => {
+  //   return {
+  //     x: { value: 0, min: 0, max: 10000, step: 0.01 },
+  //     y: { value: 0, min: -10000, max: 10000, step: 0.01 },
+  //     z: { value: 0, min: -100, max: 100, step: 0.01 },
+  //     rotateZ: { value: 0, min: -100, max: 100, step: 0.01 },
+  //   };
+  // }, []);
   const [filters, setFilters] = useState("All");
   const [plotLeads, setPlotLeads] = useState(false);
   const [currentPlot, setCurrentPlot] = useState(null);
@@ -418,10 +422,29 @@ export default function Celeris({ setIsMapView }) {
         screenSpacePanning={true}
       /> */}
       <CameraController />
-      <group ref={globeRef} rotation={[-1.56, 0, 0]}>
+      <group ref={globeRef} rotation={[-1.57, 0, 0]}>
+        {/* <Html
+          position={[500, -500, 100]}
+          occlude={[globeRef]}
+          center
+          scale={10000}
+          wrapperClass="label"
+          sprite={true}
+          distanceFactor={2000}
+        >
+          <div class="circlewrapper">
+            <div class="midcircle"></div>
+            <div class="circles">
+              <div class="circle1"></div>
+              <div class="circle2"></div>
+              <div class="circle3"></div>
+            </div>
+          </div>
+        </Html> */}
         {/* <a.group ref={globeRef} {...spring} {...bind()}> */}
-        <mesh>
-          <planeGeometry args={[200, 200]} position={[0, 0, 0]} />
+        <Instances />
+        <mesh receiveShadow position={[0, 0, 0]}>
+          <planeGeometry args={[8000, 8000]} position={[0, 0, 0]} />
           <meshStandardMaterial
             attach="material"
             map={texture}
@@ -430,8 +453,8 @@ export default function Celeris({ setIsMapView }) {
             // normalScale={0.5}
           />
         </mesh>
-        {/* <mesh position={[0, 0, 0]}>
-          <planeGeometry args={[100, 100]} position={[10, 10, 10]} />
+        {/* <mesh position={[0, 0, 0.5]}>
+          <planeGeometry args={[4096, 4096]} position={[10, 10, 10]} />
           <meshBasicMaterial
             attach="material"
             map={traceMap}
@@ -440,8 +463,8 @@ export default function Celeris({ setIsMapView }) {
           />
         </mesh> */}
 
-        <mesh position={[12.5, -12.5, 0.002]}>
-          <planeGeometry args={[25, 25]} position={[0, 0, 1]} />
+        <mesh position={[500, -500, 0.6]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
           <meshBasicMaterial
             attach="material"
             map={roadsOnly}
@@ -460,15 +483,16 @@ export default function Celeris({ setIsMapView }) {
             opacity={0.2}
           />
         </mesh> */}
-        <mesh position={[12.5, -12.5, 0.002]}>
-          <planeGeometry args={[25, 25]} />
+        {/* <mesh position={[500, -500, 0.6]}>
+          <planeGeometry args={[1000, 1000]} />
           <meshBasicMaterial
             attach="material"
             map={plotsAndRoads}
             transparent={true}
             opacity={0.2}
           />
-        </mesh>
+        </mesh> */}
+
         {/* <planeGeometry
           // args={[plot.args.width, plot.args.height]}
           ref={plotMaterialRef}
@@ -480,7 +504,6 @@ export default function Celeris({ setIsMapView }) {
           opacity={1}
           ref={plotMaterialRef}
         /> */}
-        <Instances />
 
         {/* <mesh
           material={plotMaterial}
@@ -593,12 +616,22 @@ export default function Celeris({ setIsMapView }) {
             </div>
           </Html>
         )}
-        {/* <mesh position={[pA.x, pA.y, 0.003]} rotation={[0, 0, -pA.rotateZ]}>
-          <planeGeometry args={[0.4, 0.4]} position={[0, 0, 0]} />
+        {/* <mesh position={[pA.x, pA.y, 0.7]} rotation={[0, 0, pA.rotateZ]}>
+          <planeGeometry args={[23, 23]} position={[0, 0, 0]} />
           <meshBasicMaterial
             attach="material"
             // map={plotsOnly}
             color={"#fff"}
+            transparent={true}
+            opacity={1}
+          />
+        </mesh> */}
+        {/* <mesh position={[pA.x2, pA.y2, 3]} rotation={[0, 0, -pA.rotateZ]}>
+          <planeGeometry args={[5, 5]} position={[0, 0, 0]} />
+          <meshBasicMaterial
+            attach="material"
+            // map={plotsOnly}
+            color={"#000"}
             transparent={true}
             opacity={1}
           />
@@ -613,7 +646,7 @@ export default function Celeris({ setIsMapView }) {
         currentPlot={currentPlot}
       />
       <BackBtn setIsMapView={setIsMapView} />
-      <ZoomInOut camera={camera} zoomValue={9} minValue={9} maxValue={45} />
+      {/* <ZoomInOut camera={camera} zoomValue={9} minValue={9} maxValue={45} /> */}
     </>
   );
 }
