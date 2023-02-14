@@ -2646,3 +2646,9 @@ export const CelerisPlotting = [
     rotationZ: -0.53,
   },
 ];
+// x1:506,
+// x2:529,
+// y1:516,
+// y2:539,
+// x:517.5,
+// y:527.5
