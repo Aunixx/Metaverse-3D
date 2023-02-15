@@ -1,4 +1,5 @@
 import { extend, useThree, useFrame, useLoader } from "@react-three/fiber";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { TextureLoader } from "three";
 import bumpMap from "../assets/cardano-bump.png";

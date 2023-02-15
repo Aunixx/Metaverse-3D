@@ -1,4 +1,5 @@
 import { extend, useThree, useFrame, useLoader } from "@react-three/fiber";
+import React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { RGBA_ASTC_10x10_Format, TextureLoader } from "three";
 import bumpMap from "../assets/cardano-bump.png";
@@ -27,7 +28,16 @@ import { PlotLead } from "../components/plotLead/PlotLead";
 import uuid from "react-uuid";
 import { CelerisPlottingScript } from "../plots/CelerisPlottingScript";
 import { ZavosPlotting } from "../plots/ZavosPlotting_all";
-import "../style.scss";
+import HitoshikaPlotsPNG from "../assets/hitoshika-plots.png";
+import HitoshikaRoadsPNG from "../assets/hitoshika-roads.png";
+import XerostiaPlotsPNG from "../assets/xerostia-plots.png";
+import XerostiaRoadsPNG from "../assets/xerostia-roads.png";
+import KhenonPlotsPNG from "../assets/khenon-plots.png";
+import KhenonRoadsPNG from "../assets/khenon-roads.png";
+import { ZavosInstances } from "../instances/ZavosInstance";
+import { HitoshikaInstances } from "../instances/HitoshikaInstance";
+import { XerostiaInstances } from "../instances/XerostiaInstance";
+import { KhenonInstances } from "../instances/KhenonInstance";
 
 extend({ OrbitControls });
 
@@ -45,13 +55,13 @@ const CameraController = ({ mapRef }) => {
     const controls = new OrbitControls(camera, gl.domElement);
     camera.rotation.set(-1.57, 0, 0);
     gsap.to(camera.position, { y: 1900, duration: 2 });
-    controls.minDistance = 100;
+    controls.minDistance = 5;
     controls.maxDistance = 1900;
     controls.autoRotate = false;
     controls.panSpeed = 2.5;
     controls.zoomSpeed = 2.5;
     controls.screenSpacePanning = false;
-    controls.touches = { ONE: 2, TWO: 2 };
+    controls.touches = { ONE: 1, TWO: 1 };
     controls.autoRotate = false;
     controls.mouseButtons = {
       LEFT: THREE.MOUSE.PAN,
@@ -59,6 +69,7 @@ const CameraController = ({ mapRef }) => {
       RIGHT: THREE.MOUSE.ROTATE,
     };
     controls.maxPolarAngle = 0;
+
     controls.addEventListener("change", function (e) {
       var minPan = new THREE.Vector3(
         -2900 + e.target.object.position.y + 1,
@@ -90,184 +101,6 @@ const CameraController = ({ mapRef }) => {
   return null;
 };
 
-function Instances({ count = 20000, temp = new THREE.Object3D() }) {
-  const ref = useRef();
-  const color = useMemo(() => new THREE.Color().setHex(0x00ff), []);
-
-  useEffect(() => {
-    for (let i = 0; i < ZavosPlotting.length; i++) {
-      if (ZavosPlotting[i].type === "Small") {
-        temp.scale.set(0.35, 0.35, 0.35);
-      } else if (ZavosPlotting[i].type === "Medium") {
-        temp.scale.set(0.67, 0.67, 0.67);
-      } else if (ZavosPlotting[i].type === "XL") {
-        temp.scale.set(2, 2, 2);
-      } else if (ZavosPlotting[i].type === "XXL") {
-        temp.scale.set(2.9, 2.9, 2.9);
-      } else {
-        temp.scale.set(1, 1, 1);
-      }
-      temp.position.set(
-        ZavosPlotting[i].position.x - 2000,
-        -(ZavosPlotting[i].position.y - 2000),
-        0.7
-      );
-      if (ZavosPlotting[i].commercial === true) {
-        color.r = 2;
-        color.g = 2;
-        color.b = 2;
-      } else {
-        color.r = Math.random() * 1;
-        color.g = Math.random() * 1;
-        color.b = Math.random() * 1;
-      }
-      temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
-      // if (i % 4 === 1) {
-      //   temp.position.set(
-      //     ZavosPlotting[i].position.x,
-      //     -ZavosPlotting[i].position.y,
-      //     0.7
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
-      // } else if (i % 4 === 2) {
-      //   temp.position.set(
-      //     ZavosPlotting[i].position.x,
-      //     -ZavosPlotting[i].position.y,
-      //     0.7
-      //   );
-      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      // } else if (i % 4 === 3) {
-      //   temp.position.set(
-      //     ZavosPlotting[i].position.x,
-      //     -ZavosPlotting[i].position.y,
-      //     0.7
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
-      // } else if (i % 4 === 0) {
-      //   temp.position.set(
-      //     ZavosPlotting[i].position.x,
-      //     -ZavosPlotting[i].position.y,
-      //     0.7
-      //   );
-      //   color.r = Math.random() * 1;
-      //   color.g = Math.random() * 1;
-      //   color.b = Math.random() * 1;
-      //   temp.rotation.set(0, 0, -ZavosPlotting[i].rotation.radian);
-      // }
-      temp.updateMatrix();
-      ref.current.setMatrixAt(i, temp.matrix);
-      ref.current.setColorAt(i, color);
-    }
-    ref.current.instanceMatrix.needsUpdate = true;
-    ref.current.instanceColor.needsUpdate = true;
-  }, []);
-  return (
-    <instancedMesh
-      ref={ref}
-      args={[null, null, ZavosPlotting.length]}
-      // onClick={(e) => {
-      //   e.stopPropagation();
-      //   const temp = new THREE.Object3D();
-      //   for (let i = 0; i < CelerisPlottingScript.length; i++) {
-      //     if (i === e.instanceId) {
-      //       console.log(CelerisPlottingScript[i]);
-      //       if (CelerisPlottingScript[i].name.includes("small")) {
-      //         temp.scale.set(0.35, 0.35, 5);
-      //       } else if (CelerisPlottingScript[i].name.includes("Medium")) {
-      //         temp.scale.set(0.7, 0.7, 5);
-      //       } else {
-      //         temp.scale.set(1, 1, 5);
-      //       }
-      //       temp.position.set(
-      //         CelerisPlottingScript[i].position.x,
-      //         CelerisPlottingScript[i].position.y,
-      //         0.003
-      //       );
-      //       temp.rotation.set(0, 0, CelerisPlottingScript[i].rotation.radian);
-      //       temp.updateMatrix();
-      //       ref.current.setMatrixAt(i, temp.matrix);
-      //       ref.current.instanceMatrix.needsUpdate = true;
-      //     }
-      //   }
-      //   ref.current.updateMatrix();
-      //   // ref.current.setColorAt(e.instanceId, color);
-      //   ref.current.instanceColor.needsUpdate = true;
-      // }}
-      // onPointerEnter={(e) => {
-      //   e.stopPropagation();
-      //   const temp = new THREE.Object3D();
-      //   const color = new THREE.Color().setHex(0x0300ff);
-
-      //   for (let i = 0; i < CelerisPlottingScript.length; i++) {
-      //     if (i === e.instanceId) {
-      //       if (CelerisPlottingScript[i].name.includes("small")) {
-      //         temp.scale.set(0.35, 0.35, 10);
-      //       } else if (CelerisPlottingScript[i].name.includes("Medium")) {
-      //         temp.scale.set(0.7, 0.7, 15);
-      //       } else {
-      //         temp.scale.set(1, 1, 20);
-      //       }
-      //       // temp.scale.set(1.5, 1.5, 1.5);
-      //       temp.position.set(
-      //         CelerisPlottingScript[i].position.x,
-      //         CelerisPlottingScript[i].position.y,
-      //         0.003
-      //       );
-      //       temp.rotation.set(0, 0, CelerisPlottingScript[i].rotation.radian);
-      //       temp.updateMatrix();
-      //       ref.current.setMatrixAt(i, temp.matrix);
-      //       ref.current.instanceMatrix.needsUpdate = true;
-      //     }
-      //   }
-      //   ref.current.updateMatrix();
-      //   // ref.current.setColorAt(e.instanceId, color);
-      //   ref.current.instanceColor.needsUpdate = true;
-      //   document.querySelector("#root").style.cursor = "pointer";
-      // }}
-      // onPointerLeave={(e) => {
-      //   e.stopPropagation();
-      //   const temp = new THREE.Object3D();
-      //   for (let i = 0; i < CelerisPlotting.length; i++) {
-      //     if (i === e.instanceId) {
-      //       if (CelerisPlotting[i].size === "small") {
-      //         // temp.scale.set(0.35, 0.35, 0.35);
-      //         gsap.from(temp.scale, { x: 0.35, y: 0.35, z: 0.35, duration: 4 });
-      //       } else if (CelerisPlotting[i].size === "medium") {
-      //         temp.scale.set(0.7, 0.7, 0.7);
-      //       } else {
-      //         temp.scale.set(1, 1, 1);
-      //       }
-      //       temp.position.set(
-      //         CelerisPlotting[i].position.x,
-      //         CelerisPlotting[i].position.y,
-      //         0.003
-      //       );
-      //       temp.rotation.set(0, 0, CelerisPlotting[i].rotationZ);
-      //       temp.updateMatrix();
-      //       ref.current.setMatrixAt(i, temp.matrix);
-      //       ref.current.instanceMatrix.needsUpdate = true;
-      //     }
-      //   }
-      //   ref.current.updateMatrix();
-      //   // ref.current.setColorAt(e.instanceId, color);
-      //   ref.current.instanceColor.needsUpdate = true;
-      //   document.querySelector("#root").style.cursor = "grab";
-      // }}
-    >
-      <planeGeometry args={[23, 23]} />
-      <meshBasicMaterial />
-    </instancedMesh>
-  );
-}
 export default function Celeris({ setIsMapView }) {
   const { camera, gl } = useThree();
   const [zoomIn, setZoomIn] = useState(8);
@@ -285,6 +118,12 @@ export default function Celeris({ setIsMapView }) {
   const PlotRectangle = useLoader(TextureLoader, PlotRect);
   const bump = useLoader(TextureLoader, bumpMap);
   const galaxy = useLoader(TextureLoader, galaxyImg);
+  const hitoshikaPlots = useLoader(TextureLoader, HitoshikaPlotsPNG);
+  const hitoshikaRoads = useLoader(TextureLoader, HitoshikaRoadsPNG);
+  const xerostiaPlots = useLoader(TextureLoader, XerostiaPlotsPNG);
+  const xerostiaRoads = useLoader(TextureLoader, XerostiaRoadsPNG);
+  const khenonPlots = useLoader(TextureLoader, KhenonPlotsPNG);
+  const khenonRoads = useLoader(TextureLoader, KhenonRoadsPNG);
   const [htmlScale, setHtmlScale] = useState(0.1);
   const [cameraZoom, setCameraZoom] = useState();
   const [prevCameraZoom, setPrevCameraZoom] = useState();
@@ -352,19 +191,19 @@ export default function Celeris({ setIsMapView }) {
     }
   );
 
-  // const options = useMemo(() => {
-  //   return {
-  //     x: { value: 0, min: 0, max: 10000, step: 0.01 },
-  //     y: { value: 0, min: -10000, max: 10000, step: 0.01 },
-  //     z: { value: 0, min: -100, max: 100, step: 0.01 },
-  //     rotateZ: { value: 0, min: -100, max: 100, step: 0.01 },
-  //   };
-  // }, []);
+  const options = useMemo(() => {
+    return {
+      x: { value: 0, min: -10000, max: 10000, step: 0.01 },
+      y: { value: 0, min: -10000, max: 10000, step: 0.01 },
+      z: { value: 0, min: -100, max: 100, step: 0.01 },
+      rotateZ: { value: 0, min: -100, max: 100, step: 0.01 },
+    };
+  }, []);
   const [filters, setFilters] = useState("All");
   const [plotLeads, setPlotLeads] = useState(false);
   const [currentPlot, setCurrentPlot] = useState(null);
   const [plotCoordinates, setPlotCoordinates] = useState(null);
-  // const pA = useControls("Polyhedron A", options);
+  const pA = useControls("Polyhedron A", options);
 
   const HandlePlotCoordinates = (plot) => {
     if (!plot) {
@@ -423,26 +262,11 @@ export default function Celeris({ setIsMapView }) {
       /> */}
       <CameraController />
       <group ref={globeRef} rotation={[-1.57, 0, 0]}>
-        {/* <Html
-          position={[500, -500, 100]}
-          occlude={[globeRef]}
-          center
-          scale={10000}
-          wrapperClass="label"
-          sprite={true}
-          distanceFactor={2000}
-        >
-          <div class="circlewrapper">
-            <div class="midcircle"></div>
-            <div class="circles">
-              <div class="circle1"></div>
-              <div class="circle2"></div>
-              <div class="circle3"></div>
-            </div>
-          </div>
-        </Html> */}
         {/* <a.group ref={globeRef} {...spring} {...bind()}> */}
-        <Instances />
+        <ZavosInstances />
+        <HitoshikaInstances />
+        <XerostiaInstances />
+        <KhenonInstances />
         <mesh receiveShadow position={[0, 0, 0]}>
           <planeGeometry args={[8000, 8000]} position={[0, 0, 0]} />
           <meshStandardMaterial
@@ -453,8 +277,8 @@ export default function Celeris({ setIsMapView }) {
             // normalScale={0.5}
           />
         </mesh>
-        {/* <mesh position={[0, 0, 0.5]}>
-          <planeGeometry args={[4096, 4096]} position={[10, 10, 10]} />
+        {/* <mesh position={[0, 0, 1]}>
+          <planeGeometry args={[4000, 4000]} />
           <meshBasicMaterial
             attach="material"
             map={traceMap}
@@ -462,8 +286,62 @@ export default function Celeris({ setIsMapView }) {
             opacity={0.9}
           />
         </mesh> */}
+        <mesh position={[-500, -1000, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={hitoshikaRoads}
+            transparent={true}
+            opacity={1}
+          />
+        </mesh>
+        {/* <mesh position={[-500, -1000, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={hitoshikaPlots}
+            transparent={true}
+            opacity={0.5}
+          />
+        </mesh> */}
+        <mesh position={[1500, -500, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={xerostiaRoads}
+            transparent={true}
+            opacity={1}
+          />
+        </mesh>
+        {/* <mesh position={[1500, -500, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={xerostiaPlots}
+            transparent={true}
+            opacity={0.5}
+          />
+        </mesh> */}
+        <mesh position={[-1500, -1000, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={khenonRoads}
+            transparent={true}
+            opacity={1}
+          />
+        </mesh>
+        {/* <mesh position={[-1500, -1000, 4]}>
+          <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={khenonPlots}
+            transparent={true}
+            opacity={0.5}
+          />
+        </mesh> */}
 
-        <mesh position={[500, -500, 0.6]}>
+        <mesh position={[500, -500, 4]}>
           <planeGeometry args={[1000, 1000]} position={[0, 0, 1]} />
           <meshBasicMaterial
             attach="material"
@@ -483,7 +361,7 @@ export default function Celeris({ setIsMapView }) {
             opacity={0.2}
           />
         </mesh> */}
-        {/* <mesh position={[500, -500, 0.6]}>
+        {/* <mesh position={[500, -500, 4]}>
           <planeGeometry args={[1000, 1000]} />
           <meshBasicMaterial
             attach="material"
@@ -616,7 +494,7 @@ export default function Celeris({ setIsMapView }) {
             </div>
           </Html>
         )}
-        {/* <mesh position={[pA.x, pA.y, 0.7]} rotation={[0, 0, pA.rotateZ]}>
+        <mesh position={[pA.x, pA.y, 5]} rotation={[0, 0, pA.rotateZ]}>
           <planeGeometry args={[23, 23]} position={[0, 0, 0]} />
           <meshBasicMaterial
             attach="material"
@@ -625,13 +503,13 @@ export default function Celeris({ setIsMapView }) {
             transparent={true}
             opacity={1}
           />
-        </mesh> */}
-        {/* <mesh position={[pA.x2, pA.y2, 3]} rotation={[0, 0, -pA.rotateZ]}>
-          <planeGeometry args={[5, 5]} position={[0, 0, 0]} />
+        </mesh>
+        {/* <mesh position={[pA.x, pA.y, 3]} rotation={[0, 0, pA.rotateZ]}>
+          <planeGeometry args={[23, 23]} position={[0, 0, 0]} />
           <meshBasicMaterial
             attach="material"
             // map={plotsOnly}
-            color={"#000"}
+            color={"#fff"}
             transparent={true}
             opacity={1}
           />

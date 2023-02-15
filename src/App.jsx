@@ -1,13 +1,13 @@
 import "./style.scss";
 
 import { Canvas, useThree, useLoader } from "@react-three/fiber";
-import Globe from "./globe.js";
+import Globe from "./globe.jsx";
 import { Suspense, useState, useEffect, useRef, useLayoutEffect } from "react";
 import { Html, useProgress, OrthographicCamera } from "@react-three/drei";
 import * as THREE from "three";
 import Celeris from "./maps/celeris";
 import Ourobora from "./maps/ourobora";
-import KirrusMap from "./maps/kirrus.js";
+import KirrusMap from "./maps/kirrus.jsx";
 import Loader from "./components/loader/loader";
 import Typewriter from "typewriter-effect";
 import TypeWriterEffect from "react-typewriter-effect";

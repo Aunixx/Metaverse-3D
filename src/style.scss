@@ -1,5 +1,7 @@
 @import url("./assets/scss/_fonts.scss");
-
+canvas {
+  pointer-events: auto !important;
+}
 #root {
   position: fixed;
   top: 0;
