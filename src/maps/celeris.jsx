@@ -196,19 +196,19 @@ export default function Celeris({ setIsMapView }) {
     }
   );
 
-  const options = useMemo(() => {
-    return {
-      x: { value: 0, min: -10000, max: 10000, step: 0.01 },
-      y: { value: 0, min: -10000, max: 10000, step: 0.01 },
-      z: { value: 0, min: -100, max: 100, step: 0.01 },
-      rotateZ: { value: 0, min: -100, max: 100, step: 0.01 },
-    };
-  }, []);
+  // const options = useMemo(() => {
+  //   return {
+  //     x: { value: 0, min: -10000, max: 10000, step: 0.01 },
+  //     y: { value: 0, min: -10000, max: 10000, step: 0.01 },
+  //     z: { value: 0, min: -100, max: 100, step: 0.01 },
+  //     rotateZ: { value: 0, min: -100, max: 100, step: 0.01 },
+  //   };
+  // }, []);
   const [filters, setFilters] = useState("All");
   const [plotLeads, setPlotLeads] = useState(false);
   const [currentPlot, setCurrentPlot] = useState(null);
   const [plotCoordinates, setPlotCoordinates] = useState(null);
-  const pA = useControls("Polyhedron A", options);
+  // const pA = useControls("Polyhedron A", options);
 
   const HandlePlotCoordinates = (plot) => {
     if (!plot) {
@@ -517,7 +517,7 @@ export default function Celeris({ setIsMapView }) {
             </div>
           </Html>
         )}
-        <mesh position={[pA.x, pA.y, 5]} rotation={[0, 0, pA.rotateZ]}>
+        {/* <mesh position={[pA.x, pA.y, 5]} rotation={[0, 0, pA.rotateZ]}>
           <planeGeometry args={[23, 23]} position={[0, 0, 0]} />
           <meshBasicMaterial
             attach="material"
@@ -526,7 +526,7 @@ export default function Celeris({ setIsMapView }) {
             transparent={true}
             opacity={1}
           />
-        </mesh>
+        </mesh> */}
         {/* <mesh position={[pA.x, pA.y, 3]} rotation={[0, 0, pA.rotateZ]}>
           <planeGeometry args={[23, 23]} position={[0, 0, 0]} />
           <meshBasicMaterial
