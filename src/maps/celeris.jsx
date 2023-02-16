@@ -34,10 +34,13 @@ import XerostiaPlotsPNG from "../assets/xerostia-plots.png";
 import XerostiaRoadsPNG from "../assets/xerostia-roads.png";
 import KhenonPlotsPNG from "../assets/khenon-plots.png";
 import KhenonRoadsPNG from "../assets/khenon-roads.png";
+import AzraqPlotsPNG from "../assets/azraq-land.png";
+import AzraqRoadsPNG from "../assets/azraq-roads.png";
 import { ZavosInstances } from "../instances/ZavosInstance";
 import { HitoshikaInstances } from "../instances/HitoshikaInstance";
 import { XerostiaInstances } from "../instances/XerostiaInstance";
 import { KhenonInstances } from "../instances/KhenonInstance";
+import { AzraqInstances } from "../instances/AzraqInstance";
 
 extend({ OrbitControls });
 
@@ -124,6 +127,8 @@ export default function Celeris({ setIsMapView }) {
   const xerostiaRoads = useLoader(TextureLoader, XerostiaRoadsPNG);
   const khenonPlots = useLoader(TextureLoader, KhenonPlotsPNG);
   const khenonRoads = useLoader(TextureLoader, KhenonRoadsPNG);
+  const azraqPlots = useLoader(TextureLoader, AzraqPlotsPNG);
+  const azraqRoads = useLoader(TextureLoader, AzraqRoadsPNG);
   const [htmlScale, setHtmlScale] = useState(0.1);
   const [cameraZoom, setCameraZoom] = useState();
   const [prevCameraZoom, setPrevCameraZoom] = useState();
@@ -267,6 +272,7 @@ export default function Celeris({ setIsMapView }) {
         <HitoshikaInstances />
         <XerostiaInstances />
         <KhenonInstances />
+        <AzraqInstances />
         <mesh receiveShadow position={[0, 0, 0]}>
           <planeGeometry args={[8000, 8000]} position={[0, 0, 0]} />
           <meshStandardMaterial
@@ -350,7 +356,24 @@ export default function Celeris({ setIsMapView }) {
             opacity={1}
           />
         </mesh>
-
+        <mesh position={[1250, 1250, 4]}>
+          <planeGeometry args={[1500, 1500]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={azraqPlots}
+            transparent={true}
+            opacity={0.3}
+          />
+        </mesh>
+        <mesh position={[1250, 1250, 4]}>
+          <planeGeometry args={[1500, 1500]} position={[0, 0, 1]} />
+          <meshBasicMaterial
+            attach="material"
+            map={azraqRoads}
+            transparent={true}
+            opacity={1}
+          />
+        </mesh>
         {/*
         <mesh position={[12.5, -12.5, 0.001]}>
           <planeGeometry args={[25, 25]} position={[0, 0, 1]} />
